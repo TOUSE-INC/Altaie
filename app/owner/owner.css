@@ -70,7 +70,26 @@ body:has(.owner-root) { background: #f5f4ef; }
 .owner-metric small { grid-column: 1 / -1; color: #77756f; font-size: .63rem; }
 .owner-metric--dark { background: #050505; color: white; }
 .owner-metric--dark small, .owner-metric--dark > span { color: #8d8d88; }
-.owner-command-grid { display: grid; grid-template-columns: 1.45fr .85fr; gap: 20px; margin-top: 80px; }
+.owner-visual-pulse { display: grid; grid-template-columns: .58fr 1.42fr; margin-top: 20px; border: 1px solid rgba(5,5,5,.17); background: white; }
+.owner-pulse-head { display: flex; flex-direction: column; align-items: flex-start; padding: clamp(28px, 4vw, 45px); background: var(--limestone); }
+.owner-pulse-head h2 { margin-bottom: 38px; font-size: clamp(2.6rem, 4.5vw, 5.1rem); }
+.owner-pulse-head .owner-badge { margin-top: auto; }
+.owner-pulse-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(5,5,5,.15); }
+.owner-mini-fleet, .owner-mini-drivers { min-width: 0; display: flex; flex-direction: column; padding: 25px; background: white; }
+.owner-mini-label { display: block; margin-bottom: 16px; color: #77756f; font-size: .53rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
+.owner-mini-fleet > button, .owner-mini-drivers > button { width: 100%; min-height: 76px; display: grid; grid-template-columns: 62px 1fr 15px; gap: 13px; align-items: center; padding: 10px 0; border: 0; border-bottom: 1px solid rgba(5,5,5,.13); background: transparent; color: inherit; text-align: left; cursor: pointer; }
+.owner-mini-fleet > button:last-child, .owner-mini-drivers > button:last-child { border-bottom: 0; }
+.owner-mini-fleet > button:hover, .owner-mini-drivers > button:hover { background: var(--marble); }
+.owner-mini-fleet img { width: 62px; height: 62px; display: block; border-radius: 2px; object-fit: cover; }
+.owner-mini-fleet button > div, .owner-mini-drivers button > div { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.owner-mini-fleet small, .owner-mini-drivers small { color: #77756f; font-size: .55rem; }
+.owner-mini-fleet strong, .owner-mini-drivers strong { overflow: hidden; font-size: .69rem; text-overflow: ellipsis; white-space: nowrap; }
+.owner-mini-fleet button > div > span { color: #5f6b63; font-size: .57rem; font-weight: 900; text-transform: uppercase; }
+.owner-mini-fleet b, .owner-mini-drivers b { font-weight: 400; }
+.owner-driver-avatar { position: relative; width: 52px; height: 52px; }
+.owner-driver-avatar img { width: 52px; height: 52px; display: block; border-radius: 50%; object-fit: cover; }
+.owner-driver-avatar i { position: absolute; right: 0; bottom: 1px; width: 10px; height: 10px; border: 2px solid white; border-radius: 50%; background: #7c857d; }
+.owner-command-grid { display: grid; grid-template-columns: 1.45fr .85fr; gap: 20px; margin-top: 20px; }
 .owner-exception, .owner-capacity, .owner-live-preview, .owner-bottom-grid > article, .owner-network-card, .owner-network-bottom > section, .owner-accounts-table, .owner-pipeline, .owner-chart-card, .owner-finance-bottom > article, .owner-compliance-grid > article, .owner-checkpoints { border: 1px solid rgba(5,5,5,.16); background: white; box-shadow: 0 22px 70px rgba(5,5,5,.055); }
 .owner-exception, .owner-capacity { padding: clamp(28px, 4vw, 48px); }
 .owner-card-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; }
@@ -147,6 +166,12 @@ body:has(.owner-root) { background: #f5f4ef; }
 .owner-route-detail span { color: #77756f; font-size: .56rem; font-weight: 900; text-transform: uppercase; }
 .owner-route-detail strong { margin: 6px 0; font-size: .8rem; }
 .owner-route-detail i { width: 1px; height: 35px; margin: 4px 0 4px 5px; background: #7e7c76; }
+.owner-selected-driver { display: grid; grid-template-columns: 58px 1fr; gap: 14px; align-items: center; margin: 0 0 22px; padding: 14px; background: white; }
+.owner-selected-driver > img, .owner-selected-driver > span { width: 58px; height: 58px; display: grid; place-items: center; border-radius: 50%; background: #050505; color: white; object-fit: cover; }
+.owner-selected-driver > div { display: flex; flex-direction: column; gap: 3px; }
+.owner-selected-driver small { color: #77756f; font-size: .52rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+.owner-selected-driver strong { font-size: .74rem; }
+.owner-selected-driver em { color: #6f6d67; font-size: .55rem; font-style: normal; }
 .owner-detail-list { margin: 0; border-top: 1px solid rgba(5,5,5,.15); }
 .owner-detail-list div { display: flex; justify-content: space-between; gap: 18px; padding: 13px 0; border-bottom: 1px solid rgba(5,5,5,.15); }
 .owner-detail-list dt { color: #66645f; font-size: .57rem; font-weight: 900; text-transform: uppercase; }
@@ -249,6 +274,9 @@ body:has(.owner-root) { background: #f5f4ef; }
   .owner-root { grid-template-columns: 210px 1fr; }
   .owner-content { width: min(100% - 40px, 1320px); }
   .owner-command-grid, .owner-ops-layout { grid-template-columns: 1fr; }
+  .owner-visual-pulse { grid-template-columns: 1fr; }
+  .owner-pulse-head { min-height: 220px; }
+  .owner-pulse-head h2 { margin-bottom: 25px; }
   .owner-fleet-showcase { grid-template-columns: 1fr 1fr; }
   .owner-fleet-heading { grid-column: 1 / -1; min-height: 260px; }
   .owner-metric-grid, .owner-account-kpis, .owner-financial-grid { grid-template-columns: repeat(2, 1fr); }
@@ -282,6 +310,11 @@ body:has(.owner-root) { background: #f5f4ef; }
   .owner-metric-grid, .owner-account-kpis, .owner-financial-grid, .owner-network-summary { grid-template-columns: 1fr 1fr; }
   .owner-metric { min-height: 155px; padding: 18px; }
   .owner-metric strong { font-size: 2.6rem; }
+  .owner-pulse-grid { grid-template-columns: 1fr; }
+  .owner-pulse-head { min-height: 250px; padding: 27px; }
+  .owner-mini-fleet, .owner-mini-drivers { padding: 18px; }
+  .owner-mini-fleet > button, .owner-mini-drivers > button { grid-template-columns: 56px 1fr 15px; }
+  .owner-mini-fleet img { width: 56px; height: 56px; }
   .owner-network-summary .owner-metric:last-child { grid-column: 1 / -1; border-top: 1px solid rgba(5,5,5,.17); }
   .owner-fleet-showcase { grid-template-columns: 1fr; }
   .owner-fleet-heading { grid-column: auto; min-height: 310px; padding: 27px; }

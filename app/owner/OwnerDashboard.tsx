@@ -17,12 +17,23 @@ const navigation: Array<{ id: View; label: string; cue: string }> = [
 ];
 
 const rides = [
-  { id: "AT-1054", time: "07:10", route: "The Jefferson → DCA", rider: "Jordan Lee", vehicle: "Sedan", partner: "Monument", status: "En route", tone: "live", type: "airport" },
-  { id: "AT-1055", time: "08:30", route: "IAD → The Willard", rider: "Elena Park", vehicle: "SUV", partner: "Potomac", status: "Flight delayed", tone: "watch", type: "airport" },
-  { id: "AT-1056", time: "10:00", route: "K Street → Capitol Hill", rider: "Daniel Wu", vehicle: "Sedan", partner: "District", status: "Confirmed", tone: "ready", type: "city" },
-  { id: "AT-1057", time: "14:15", route: "Embassy Row · 4 stops", rider: "Amira Hassan", vehicle: "SUV", partner: "Monument", status: "Briefed", tone: "ready", type: "city" },
-  { id: "AT-1058", time: "18:10", route: "Georgetown → DCA", rider: "Priya Shah", vehicle: "SUV", partner: "Unassigned", status: "Needs coverage", tone: "alert", type: "airport" },
-  { id: "AT-1059", time: "20:40", route: "BWI → Dupont Circle", rider: "Marcus Bell", vehicle: "Sedan", partner: "Capital", status: "Confirmed", tone: "ready", type: "airport" },
+  { id: "AT-1054", time: "07:10", route: "The Jefferson → DCA", rider: "Jordan Lee", vehicle: "Sedan", partner: "Monument", driver: "Marcus T.", driverImage: "/images/owner/icons/driver-marcus.jpg", status: "En route", tone: "live", type: "airport" },
+  { id: "AT-1055", time: "08:30", route: "IAD → The Willard", rider: "Elena Park", vehicle: "SUV", partner: "Potomac", driver: "Lena R.", driverImage: "/images/owner/icons/driver-lena.jpg", status: "Flight delayed", tone: "watch", type: "airport" },
+  { id: "AT-1056", time: "10:00", route: "K Street → Capitol Hill", rider: "Daniel Wu", vehicle: "Sedan", partner: "District", driver: "Omar K.", driverImage: "/images/owner/icons/driver-omar.jpg", status: "Confirmed", tone: "ready", type: "city" },
+  { id: "AT-1057", time: "14:15", route: "Embassy Row · 4 stops", rider: "Amira Hassan", vehicle: "SUV", partner: "Monument", driver: "Marcus T.", driverImage: "/images/owner/icons/driver-marcus.jpg", status: "Briefed", tone: "ready", type: "city" },
+  { id: "AT-1058", time: "18:10", route: "Georgetown → DCA", rider: "Priya Shah", vehicle: "SUV", partner: "Unassigned", driver: "Unassigned", driverImage: "", status: "Needs coverage", tone: "alert", type: "airport" },
+  { id: "AT-1059", time: "20:40", route: "BWI → Dupont Circle", rider: "Marcus Bell", vehicle: "Sedan", partner: "Capital", driver: "Omar K.", driverImage: "/images/owner/icons/driver-omar.jpg", status: "Confirmed", tone: "ready", type: "airport" },
+];
+
+const driverRoster = [
+  { name: "Marcus T.", image: "/images/owner/icons/driver-marcus.jpg", status: "En route", assignment: "AT-1054" },
+  { name: "Lena R.", image: "/images/owner/icons/driver-lena.jpg", status: "Holding", assignment: "AT-1055" },
+  { name: "Omar K.", image: "/images/owner/icons/driver-omar.jpg", status: "Briefed", assignment: "AT-1056" },
+];
+
+const fleetRoster = [
+  { name: "Escalade ESV", image: "/images/owner/icons/escalade-fleet.jpg", count: "6 ready", note: "Core SUV" },
+  { name: "Maybach S-Class", image: "/images/owner/icons/maybach-fleet.jpg", count: "2 by request", note: "Flagship sedan" },
 ];
 
 const partners = [
@@ -80,6 +91,14 @@ function Overview({ navigate }: { navigate: (view: View) => void }) {
       <Metric index="04" label="Projected monthly GMV" value="$78.4K" note="Up 18.6%" dark />
     </section>
 
+    <section className="owner-visual-pulse" aria-label="Fleet and driver overview">
+      <div className="owner-pulse-head"><div><p className="owner-kicker">People and vehicles</p><h2>On duty now.</h2></div><Badge tone="ready">11 ready</Badge></div>
+      <div className="owner-pulse-grid">
+        <div className="owner-mini-fleet"><span className="owner-mini-label">Fleet classes</span>{fleetRoster.map((vehicle) => <button key={vehicle.name} onClick={() => navigate("network")}><Image src={vehicle.image} width={341} height={341} alt={`${vehicle.name} fleet thumbnail`} /><div><small>{vehicle.note}</small><strong>{vehicle.name}</strong><span>{vehicle.count}</span></div><b>↗</b></button>)}</div>
+        <div className="owner-mini-drivers"><span className="owner-mini-label">Chauffeurs on duty</span>{driverRoster.map((driver) => <button key={driver.name} onClick={() => navigate("operations")}><span className="owner-driver-avatar"><Image src={driver.image} width={512} height={512} alt={`${driver.name} chauffeur portrait`} /><i /></span><div><strong>{driver.name}</strong><small>{driver.assignment} · {driver.status}</small></div><b>↗</b></button>)}</div>
+      </div>
+    </section>
+
     <section className="owner-command-grid">
       <article className="owner-exception">
         <div className="owner-card-head"><div><p className="owner-kicker">Decision required</p><h2>18:10 DCA departure needs SUV coverage.</h2></div><Badge tone="alert">4 min left</Badge></div>
@@ -115,7 +134,7 @@ function Operations() {
   const [notice, setNotice] = useState("");
   const visible = rides.filter((ride) => filter === "all" || (filter === "attention" ? ["alert", "watch"].includes(ride.tone) : ride.type === "airport"));
   function assignBackup() {
-    setSelected({ ...selected, partner: "Potomac", status: "Partner notified", tone: "watch" });
+    setSelected({ ...selected, partner: "Potomac", driver: "Lena R.", driverImage: "/images/owner/icons/driver-lena.jpg", status: "Partner notified", tone: "watch" });
     setNotice("Backup offer sent to Potomac Mobility. Escalation timer restarted at 4 minutes.");
   }
   return <div className="owner-view">
@@ -129,6 +148,10 @@ function Operations() {
       <aside className="owner-dispatch-panel">
         <div className="owner-card-head"><div><p className="owner-kicker">Selected assignment</p><h2>{selected.id}</h2></div><Badge tone={selected.tone}>{selected.status}</Badge></div>
         <div className="owner-route-detail"><span>Pickup · {selected.time}</span><strong>{selected.route.split(" → ")[0]}</strong><i /><span>Destination</span><strong>{selected.route.split(" → ")[1] ?? "Multi-stop itinerary"}</strong></div>
+        <div className="owner-selected-driver">
+          {selected.driverImage ? <Image src={selected.driverImage} width={512} height={512} alt={`${selected.driver} chauffeur portrait`} /> : <span>—</span>}
+          <div><small>Assigned chauffeur</small><strong>{selected.driver}</strong><em>{selected.driverImage ? "Identity and documents verified" : "Pending partner acceptance"}</em></div>
+        </div>
         <dl className="owner-detail-list"><div><dt>Rider</dt><dd>{selected.rider}</dd></div><div><dt>Vehicle</dt><dd>{selected.vehicle}</dd></div><div><dt>Assigned partner</dt><dd>{selected.partner}</dd></div><div><dt>Desk owner</dt><dd>Maya C.</dd></div></dl>
         {notice && <p className="owner-notice" role="status">{notice}</p>}
         <div className="owner-actions"><button className="owner-button owner-button--dark" onClick={assignBackup}>Assign backup</button><button className="owner-button owner-button--line">Open ride record</button></div>

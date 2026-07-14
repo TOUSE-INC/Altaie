@@ -40,6 +40,11 @@ test("all required public routes and lead endpoint exist", async () => {
     "app/owner/page.tsx",
     "public/images/owner/chauffeur-escalade.jpg",
     "public/images/owner/maybach-arrival.jpg",
+    "public/images/owner/icons/escalade-fleet.jpg",
+    "public/images/owner/icons/maybach-fleet.jpg",
+    "public/images/owner/icons/driver-marcus.jpg",
+    "public/images/owner/icons/driver-lena.jpg",
+    "public/images/owner/icons/driver-omar.jpg",
     "app/api/leads/route.ts",
   ]) {
     await access(new URL(path, root));
@@ -63,4 +68,6 @@ test("all required public routes and lead endpoint exist", async () => {
   assert.match(owner, /Compliance center/);
   assert.match(owner, /Cadillac Escalade ESV/);
   assert.match(owner, /Mercedes-Maybach S-Class/);
+  assert.match(owner, /People and vehicles/);
+  assert.match(owner, /Chauffeurs on duty/);
 });
