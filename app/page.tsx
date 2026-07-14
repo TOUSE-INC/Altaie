@@ -29,12 +29,12 @@ export default function Home() {
           <h1>Washington,<br /><em>handled.</em></h1>
           <p>Discreet chauffeur coordination for the people who manage demanding schedules—and the principals who depend on them.</p>
           <div className="hero-actions">
-            <Link className="button button--brass" href="/book">Request a ride</Link>
+            <Link className="button button--brass" href="/book">Book a ride</Link>
             <Link className="button button--ghost" href="/corporate">Open a corporate account</Link>
           </div>
         </div>
         <div className="hero-proof" aria-label="Service highlights">
-          <span>Fixed, all-inclusive quotes</span><span>DCA · IAD · BWI</span><span>No surge pricing</span>
+          <span>Fixed, all-inclusive pricing</span><span>DCA · IAD · BWI</span><span>Direct confirmation</span>
         </div>
       </section>
 
@@ -42,13 +42,13 @@ export default function Home() {
         <p className="eyebrow">A better operating model</p>
         <div className="statement-grid">
           <h2>Not another black-car directory. One accountable Washington desk.</h2>
-          <div><p>Global platforms optimize for reach. Altaie is designed around local follow-through: the itinerary is reviewed, the operator is vetted, and the assignment is actively coordinated.</p><Link className="text-link" href="/standards">See the Altaie standard <span aria-hidden="true">↗</span></Link></div>
+          <div><p>Global platforms optimize for reach. Altaie combines direct booking with local follow-through: available inventory is shown upfront, the operator is vetted, and the confirmed assignment is actively coordinated.</p><Link className="text-link" href="/standards">See the Altaie standard <span aria-hidden="true">↗</span></Link></div>
         </div>
       </section>
 
       <section className="services-section">
         <div className="page-shell">
-          <div className="section-heading"><div><p className="eyebrow">Core assignments</p><h2>Built around the workday.</h2></div><p>From a single airport arrival to a full day of principal movement, every request begins with the operating details.</p></div>
+          <div className="section-heading"><div><p className="eyebrow">Core assignments</p><h2>Built around the workday.</h2></div><p>From a single airport arrival to a full day of principal movement, each booking begins with live availability and a fixed total.</p></div>
           <div className="service-cards">
             {services.map((service) => <Link key={service.index} className="service-card" href={service.href}><span>{service.index}</span><h3>{service.title}</h3><p>{service.body}</p><b aria-hidden="true">↗</b></Link>)}
           </div>

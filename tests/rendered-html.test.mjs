@@ -21,7 +21,7 @@ test("production build and Altaie homepage sources are present", async () => {
   assert.match(home, /Washington,/);
   assert.match(home, /application\/ld\+json/);
   assert.match(home, /DCA.*IAD.*BWI/s);
-  assert.match(chrome, /Request a ride/);
+  assert.match(chrome, /Book a ride/);
   assert.doesNotMatch(`${layout}${home}${chrome}`, /Sable Mile|react-loading-skeleton|Your site is taking shape/i);
 });
 
@@ -32,6 +32,7 @@ test("all required public routes and lead endpoint exist", async () => {
     "app/airports/page.tsx",
     "app/standards/page.tsx",
     "app/book/page.tsx",
+    "app/book/DirectBooking.tsx",
     "app/contact/page.tsx",
     "app/partner-network/page.tsx",
     "app/privacy/page.tsx",
@@ -56,9 +57,17 @@ test("all required public routes and lead endpoint exist", async () => {
   assert.match(leadRoute, /Altaie launch desk/);
 
   const portal = await source("app/portal/PortalPrototype.tsx");
-  assert.match(portal, /Request a ride/);
+  assert.match(portal, /Book a ride/);
   assert.match(portal, /Coordination desk/);
   assert.match(portal, /Production reservations, accounts, payments, and ride history remain connected through Moovs/);
+  assert.doesNotMatch(portal, /sends the fixed quote|Send for review|Quote approval/);
+
+  const booking = await source("app/book/DirectBooking.tsx");
+  assert.match(booking, /Direct booking/);
+  assert.match(booking, /See available vehicles/);
+  assert.match(booking, /Confirm booking/);
+  assert.match(booking, /You&apos;re booked/);
+  assert.doesNotMatch(booking, /request a quote|send for review/i);
 
   const owner = await source("app/owner/OwnerDashboard.tsx");
   assert.match(owner, /Good morning,/);

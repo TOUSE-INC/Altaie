@@ -8,7 +8,7 @@ type RequestPhase = "details" | "review" | "sent";
 
 const navigation: Array<{ id: Screen; label: string; cue: string }> = [
   { id: "home", label: "Home", cue: "H" },
-  { id: "request", label: "Request", cue: "+" },
+  { id: "request", label: "Book", cue: "+" },
   { id: "ride", label: "Ride detail", cue: "R" },
   { id: "trips", label: "Trips", cue: "T" },
   { id: "desk", label: "Coordination desk", cue: "D" },
@@ -17,7 +17,7 @@ const navigation: Array<{ id: Screen; label: string; cue: string }> = [
 
 const screenTitles: Record<Screen, string> = {
   home: "Today",
-  request: "Request a ride",
+  request: "Book a ride",
   ride: "Ride detail",
   trips: "Trips",
   desk: "Coordination desk",
@@ -26,7 +26,7 @@ const screenTitles: Record<Screen, string> = {
 
 const trips = [
   { id: "AT-1048", date: "Tue, Jul 21 · 7:10 AM", route: "The Jefferson → DCA", rider: "Jordan Lee", status: "Confirmed", tone: "dark" },
-  { id: "AT-1052", date: "Thu, Jul 23 · 1:30 PM", route: "IAD → 800 17th St NW", rider: "Priya Shah", status: "Under review", tone: "stone" },
+  { id: "AT-1052", date: "Thu, Jul 23 · 1:30 PM", route: "IAD → 800 17th St NW", rider: "Priya Shah", status: "Confirmed", tone: "dark" },
   { id: "AT-1039", date: "Fri, Jul 10 · 5:45 PM", route: "Union Station → Georgetown", rider: "Daniel Wu", status: "Completed", tone: "line" },
 ];
 
@@ -53,12 +53,12 @@ function HomeScreen({ navigate }: { navigate: (screen: Screen) => void }) {
       <section className="portal-welcome">
         <p className="portal-kicker">Monday, July 20</p>
         <h1>Good morning, Maya.</h1>
-        <p>Two assignments are confirmed. One request is with the coordination desk.</p>
+        <p>Three assignments are confirmed. One ride-day update is with the coordination desk.</p>
       </section>
 
       <section className="portal-stat-grid" aria-label="Account overview">
         <article><span>01</span><strong>2</strong><p>Confirmed rides</p></article>
-        <article><span>02</span><strong>1</strong><p>Request under review</p></article>
+        <article><span>02</span><strong>1</strong><p>Active coordination</p></article>
         <article><span>03</span><strong>4</strong><p>Traveler profiles</p></article>
       </section>
 
@@ -103,9 +103,9 @@ function RequestScreen({ phase, setPhase }: { phase: RequestPhase; setPhase: (ph
         <span className="portal-confirm-mark">✓</span>
         <p className="portal-kicker">Request AT-1058</p>
         <h1>The desk has it.</h1>
-        <p>Your request is under review. It is not confirmed until Altaie verifies partner coverage and sends the fixed quote.</p>
-        <div className="portal-summary-card"><RouteLine pickup="The Hay-Adams" destination="IAD · Main Terminal" /><dl className="portal-detail-grid"><div><dt>Requested</dt><dd>Jul 28 · 3:40 PM</dd></div><div><dt>Rider</dt><dd>Priya Shah</dd></div><div><dt>Vehicle</dt><dd>Premium SUV</dd></div><div><dt>Status</dt><dd>Under review</dd></div></dl></div>
-        <button className="portal-button portal-button--dark" onClick={() => setPhase("details")}>Start another request</button>
+        <p>Your Altaie ride is confirmed. The itinerary, fixed total, and ride-day contact details have been sent to the traveler and booker.</p>
+        <div className="portal-summary-card"><RouteLine pickup="The Hay-Adams" destination="IAD · Main Terminal" /><dl className="portal-detail-grid"><div><dt>Pickup</dt><dd>Jul 28 · 3:40 PM</dd></div><div><dt>Rider</dt><dd>Priya Shah</dd></div><div><dt>Vehicle</dt><dd>Premium SUV</dd></div><div><dt>Status</dt><dd>Confirmed</dd></div><div><dt>Fixed total</dt><dd>$224</dd></div><div><dt>Payment</dt><dd>Corporate account</dd></div></dl></div>
+        <button className="portal-button portal-button--dark" onClick={() => setPhase("details")}>Book another ride</button>
       </div>
     );
   }
@@ -113,21 +113,21 @@ function RequestScreen({ phase, setPhase }: { phase: RequestPhase; setPhase: (ph
   if (phase === "review") {
     return (
       <div className="portal-screen portal-request-review">
-        <div className="portal-form-intro"><p className="portal-kicker">Review request</p><h1>One last look.</h1><p>Submitting sends this itinerary to the coordination desk for coverage and a fixed quote.</p></div>
+        <div className="portal-form-intro"><p className="portal-kicker">Confirm booking</p><h1>One last look.</h1><p>This vehicle is available. Confirming creates the booking immediately at the fixed total shown.</p></div>
         <section className="portal-summary-card portal-summary-card--large">
-          <div className="portal-card-head"><h2>Airport transfer</h2><StatusPill>Not confirmed</StatusPill></div>
+          <div className="portal-card-head"><h2>Airport transfer</h2><StatusPill tone="dark">Available</StatusPill></div>
           <RouteLine pickup="The Hay-Adams" destination="IAD · Main Terminal" />
           <dl className="portal-detail-grid"><div><dt>Date and time</dt><dd>Tue, Jul 28 · 3:40 PM</dd></div><div><dt>Rider</dt><dd>Priya Shah</dd></div><div><dt>Passengers</dt><dd>2</dd></div><div><dt>Vehicle</dt><dd>Premium SUV</dd></div><div><dt>Flight</dt><dd>LH 419</dd></div><div><dt>Cost center</dt><dd>Client 247</dd></div></dl>
-          <div className="portal-review-note"><strong>Desk review includes</strong><p>Timing, luggage, vehicle class, flight details, operating-partner coverage, and the all-inclusive quote.</p></div>
+          <div className="portal-review-note"><strong>Fixed total · $224</strong><p>Includes flight tracking, tolls, airport access, standard grace time, and Altaie coordination. No surge pricing.</p></div>
         </section>
-        <div className="portal-actions"><button className="portal-button portal-button--dark" onClick={() => setPhase("sent")}>Send for review</button><button className="portal-button portal-button--line" onClick={() => setPhase("details")}>Edit details</button></div>
+        <div className="portal-actions"><button className="portal-button portal-button--dark" onClick={() => setPhase("sent")}>Confirm booking · $224</button><button className="portal-button portal-button--line" onClick={() => setPhase("details")}>Edit details</button></div>
       </div>
     );
   }
 
   return (
     <div className="portal-screen portal-request">
-      <div className="portal-form-intro"><p className="portal-kicker">New assignment</p><h1>Where does the day need to go?</h1><p>Requests are reviewed by the coordination desk before confirmation.</p></div>
+      <div className="portal-form-intro"><p className="portal-kicker">Direct booking</p><h1>Where does the day need to go?</h1><p>Enter the itinerary, select an available class, and confirm a fixed total directly.</p></div>
       <form className="portal-request-form" onSubmit={submit}>
         <fieldset className="portal-service-picker"><legend>Service</legend><label><input type="radio" name="service" defaultChecked /><span>One-way</span></label><label><input type="radio" name="service" /><span>Round trip</span></label><label><input type="radio" name="service" /><span>Hourly</span></label></fieldset>
         <div className="portal-form-grid">
@@ -143,7 +143,7 @@ function RequestScreen({ phase, setPhase }: { phase: RequestPhase; setPhase: (ph
           <label className="portal-field"><span>Contact phone</span><input type="tel" defaultValue="202 555 0148" /></label>
           <label className="portal-field portal-field--wide"><span>Notes for the desk</span><textarea rows={4} defaultValue="Two checked bags. Rider prefers text updates to the assistant only." /></label>
         </div>
-        <div className="portal-form-footer"><p><strong>Same-day?</strong> The request remains pending until the desk confirms coverage.</p><button className="portal-button portal-button--dark" type="submit">Review request</button></div>
+        <div className="portal-form-footer"><p><strong>Same-day?</strong> Only vehicle classes with verified live coverage are shown as bookable.</p><button className="portal-button portal-button--dark" type="submit">Review booking</button></div>
       </form>
     </div>
   );
@@ -188,7 +188,7 @@ function TripsScreen({ navigate }: { navigate: (screen: Screen) => void }) {
       <div className="portal-trip-cards">
         {visible.map((trip) => <button key={trip.id} className="portal-trip-card" onClick={() => trip.id === "AT-1048" && navigate("ride")}><div><p className="portal-kicker">{trip.id}</p><h2>{trip.route}</h2><p>{trip.date}</p></div><dl><div><dt>Rider</dt><dd>{trip.rider}</dd></div><div><dt>Service</dt><dd>{trip.id === "AT-1052" ? "Airport arrival" : "Point-to-point"}</dd></div><div><dt>Status</dt><dd><StatusPill tone={trip.tone}>{trip.status}</StatusPill></dd></div></dl><b>↗</b></button>)}
       </div>
-      <button className="portal-button portal-button--dark" onClick={() => navigate("request")}>Request a ride</button>
+      <button className="portal-button portal-button--dark" onClick={() => navigate("request")}>Book a ride</button>
     </div>
   );
 }
@@ -215,7 +215,7 @@ function AccountScreen() {
       <div className="portal-page-intro"><p className="portal-kicker">Founding account</p><h1>Aster & Rowe LLP</h1><p>Washington office · Corporate travel pilot</p></div>
       <div className="portal-account-grid">
         <section className="portal-summary-card"><div className="portal-card-head"><h2>Traveler profiles</h2><button className="portal-text-button">Add traveler</button></div><div className="portal-profile-list">{[["JL","Jordan Lee","Text assistant only"],["PS","Priya Shah","Premium SUV preferred"],["DW","Daniel Wu","Quiet ride"],["+","Guest traveler","Add when requesting"]].map(([initials,name,note]) => <button key={name}><span>{initials}</span><strong>{name}</strong><small>{note}</small><b>↗</b></button>)}</div></section>
-        <section className="portal-summary-card"><h2>Program settings</h2><dl className="portal-settings"><div><dt>Primary booker</dt><dd>Maya Chen</dd></div><div><dt>Default updates</dt><dd>Booker + traveler</dd></div><div><dt>Quote approval</dt><dd>Required</dd></div><div><dt>Billing reference</dt><dd>Cost center per ride</dd></div><div><dt>Ride history</dt><dd>Connected through Moovs in production</dd></div></dl><button className="portal-button portal-button--line">Edit preferences</button></section>
+        <section className="portal-summary-card"><h2>Program settings</h2><dl className="portal-settings"><div><dt>Primary booker</dt><dd>Maya Chen</dd></div><div><dt>Default updates</dt><dd>Booker + traveler</dd></div><div><dt>Direct booking</dt><dd>Enabled</dd></div><div><dt>Billing reference</dt><dd>Cost center per ride</dd></div><div><dt>Ride history</dt><dd>Connected through Moovs in production</dd></div></dl><button className="portal-button portal-button--line">Edit preferences</button></section>
       </div>
     </div>
   );

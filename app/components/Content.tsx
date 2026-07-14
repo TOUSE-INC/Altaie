@@ -26,7 +26,7 @@ export function PageHero({
 export function CTA({
   eyebrow = "Next assignment",
   title = "Put Washington in capable hands.",
-  body = "Share the itinerary. We’ll review the details, confirm coverage, and return a fixed, all-inclusive quote.",
+  body = "Enter the itinerary, select an available vehicle, and confirm a fixed, all-inclusive price in one direct flow.",
 }: {
   eyebrow?: string;
   title?: string;
@@ -39,7 +39,7 @@ export function CTA({
         <h2>{title}</h2>
         <p>{body}</p>
       </div>
-      <Link className="button button--ivory" href="/book">Request a ride</Link>
+      <Link className="button button--ivory" href="/book">Book a ride</Link>
     </section>
   );
 }

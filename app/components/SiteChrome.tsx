@@ -26,7 +26,7 @@ export function Header() {
             <Link key={href} href={href}>{label}</Link>
           ))}
         </nav>
-        <Link className="button button--dark header-cta" href="/book">Request a ride</Link>
+        <Link className="button button--dark header-cta" href="/book">Book a ride</Link>
         <details className="mobile-nav">
           <summary aria-label="Open navigation"><span /><span /></summary>
           <div className="mobile-nav__panel">
@@ -34,7 +34,7 @@ export function Header() {
               <Link key={href} href={href}>{label}</Link>
             ))}
             <Link href="/partner-network">Partner network</Link>
-            <Link className="button button--brass" href="/book">Request a ride</Link>
+            <Link className="button button--brass" href="/book">Book a ride</Link>
           </div>
         </details>
       </div>
@@ -49,7 +49,7 @@ export function Footer() {
         <div className="footer-primary">
           <BrandLockup inverse />
           <p>Washington&apos;s executive mobility desk for schedules that cannot drift.</p>
-          <Link className="text-link text-link--light" href="/book">Request a ride <span aria-hidden="true">↗</span></Link>
+          <Link className="text-link text-link--light" href="/book">Book a ride <span aria-hidden="true">↗</span></Link>
         </div>
         <div className="footer-column">
           <p className="eyebrow eyebrow--light">Explore</p>
