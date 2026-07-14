@@ -36,6 +36,7 @@ test("all required public routes and lead endpoint exist", async () => {
     "app/partner-network/page.tsx",
     "app/privacy/page.tsx",
     "app/terms/page.tsx",
+    "app/portal/page.tsx",
     "app/api/leads/route.ts",
   ]) {
     await access(new URL(path, root));
@@ -45,4 +46,9 @@ test("all required public routes and lead endpoint exist", async () => {
   assert.match(leadRoute, /"ride", "corporate", "partner"/);
   assert.match(leadRoute, /RateLimitError/);
   assert.match(leadRoute, /Altaie launch desk/);
+
+  const portal = await source("app/portal/PortalPrototype.tsx");
+  assert.match(portal, /Request a ride/);
+  assert.match(portal, /Coordination desk/);
+  assert.match(portal, /Production reservations, accounts, payments, and ride history remain connected through Moovs/);
 });
