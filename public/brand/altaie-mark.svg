@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title">
+  <title id="title">Altaie mark</title>
+  <rect x="4" y="4" width="56" height="56" fill="#0a1117"/>
+  <path d="M17 47 31.5 15 46 47" fill="none" stroke="#f4f0e8" stroke-width="4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M23 35h17" stroke="#b28a57" stroke-width="4"/>
+  <path d="M48 9v14" stroke="#b28a57" stroke-width="3"/>
+</svg>

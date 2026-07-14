@@ -1,0 +1,90 @@
+import Link from "next/link";
+import { CTA, NumberedList } from "./components/Content";
+
+const services = [
+  { index: "01", title: "Airport arrivals", body: "Flight-aware coordination for DCA, IAD, and BWI, including a documented 60-minute arrival grace period.", href: "/airports" },
+  { index: "02", title: "Hourly assignments", body: "One chauffeur, one vehicle, and one accountable desk across a day of meetings, changes, and waits.", href: "/services#hourly" },
+  { index: "03", title: "Corporate movement", body: "Assistant-friendly booking, centralized preferences, and consistent confirmations for recurring travelers.", href: "/corporate" },
+];
+
+export default function Home() {
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "Altaie",
+    url: "https://altaie.app",
+    areaServed: ["Washington, DC", "DCA", "IAD", "BWI"],
+    description: "A Washington, DC executive mobility desk for advance-reserved chauffeur coordination.",
+    serviceType: ["Airport transfer", "Hourly chauffeur service", "Corporate transportation", "Event transportation"],
+  };
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }} />
+      <section className="home-hero">
+        <div className="home-hero__image" role="img" aria-label="Executive arrival in Washington, DC" />
+        <div className="home-hero__shade" />
+        <div className="home-hero__content">
+          <p className="eyebrow eyebrow--light">Washington&apos;s executive mobility desk</p>
+          <h1>Washington,<br /><em>handled.</em></h1>
+          <p>Discreet chauffeur coordination for the people who manage demanding schedules—and the principals who depend on them.</p>
+          <div className="hero-actions">
+            <Link className="button button--brass" href="/book">Request a ride</Link>
+            <Link className="button button--ghost" href="/corporate">Open a corporate account</Link>
+          </div>
+        </div>
+        <div className="hero-proof" aria-label="Service highlights">
+          <span>Fixed, all-inclusive quotes</span><span>DCA · IAD · BWI</span><span>No surge pricing</span>
+        </div>
+      </section>
+
+      <section className="statement-section page-shell">
+        <p className="eyebrow">A better operating model</p>
+        <div className="statement-grid">
+          <h2>Not another black-car directory. One accountable Washington desk.</h2>
+          <div><p>Global platforms optimize for reach. Altaie is designed around local follow-through: the itinerary is reviewed, the operator is vetted, and the assignment is actively coordinated.</p><Link className="text-link" href="/standards">See the Altaie standard <span aria-hidden="true">↗</span></Link></div>
+        </div>
+      </section>
+
+      <section className="services-section">
+        <div className="page-shell">
+          <div className="section-heading"><div><p className="eyebrow">Core assignments</p><h2>Built around the workday.</h2></div><p>From a single airport arrival to a full day of principal movement, every request begins with the operating details.</p></div>
+          <div className="service-cards">
+            {services.map((service) => <Link key={service.index} className="service-card" href={service.href}><span>{service.index}</span><h3>{service.title}</h3><p>{service.body}</p><b aria-hidden="true">↗</b></Link>)}
+          </div>
+        </div>
+      </section>
+
+      <section className="split-feature page-shell">
+        <div className="split-feature__image image-assistant" role="img" aria-label="Executive assistant coordinating a travel itinerary" />
+        <div className="split-feature__content">
+          <p className="eyebrow">Designed for assistants</p>
+          <h2>The booking is only the beginning.</h2>
+          <p>The person coordinating the day needs clean confirmations, quick answers, and confidence that changes will be absorbed without drama.</p>
+          <NumberedList items={[
+            { title: "Review", body: "We check the route, timing, luggage, passenger preferences, and service class before confirmation." },
+            { title: "Brief", body: "The operating partner receives one clear assignment brief, including stops and arrival instructions." },
+            { title: "Coordinate", body: "Ride-day changes route through one accountable desk instead of a chain of unfamiliar contacts." },
+          ]} />
+        </div>
+      </section>
+
+      <section className="airport-strip">
+        <div className="page-shell airport-strip__inner">
+          <div><p className="eyebrow eyebrow--light">Three airports. One standard.</p><h2>DCA <span>·</span> IAD <span>·</span> BWI</h2></div>
+          <p>Flight tracking, clear meet instructions, and a 60-minute grace period for airport arrivals.</p>
+          <Link className="button button--ivory" href="/airports">Airport details</Link>
+        </div>
+      </section>
+
+      <section className="metrics page-shell" aria-label="Pilot targets">
+        <div><strong>15 min</strong><span>Early chauffeur arrival target</span></div>
+        <div><strong>30%</strong><span>Target contribution margin</span></div>
+        <div><strong>95%+</strong><span>Pilot on-time target</span></div>
+        <div><strong>1 desk</strong><span>For booking through completion</span></div>
+      </section>
+
+      <CTA />
+    </>
+  );
+}
