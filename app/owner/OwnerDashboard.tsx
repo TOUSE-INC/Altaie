@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { ReactNode } from "react";
+import Image from "next/image";
 
 type View = "overview" | "operations" | "network" | "accounts" | "financials" | "compliance";
 type RideFilter = "all" | "attention" | "airport";
@@ -61,8 +62,15 @@ function CoverageBars() {
 function Overview({ navigate }: { navigate: (view: View) => void }) {
   return <div className="owner-view owner-overview">
     <section className="owner-hero">
-      <div><p className="owner-kicker owner-kicker--light">Monday, July 20 · 6:42 AM EDT</p><h1>Good morning,<br />Fahad.</h1></div>
-      <div className="owner-readiness"><span>Network readiness</span><strong>96.8%</strong><p>One exception needs a decision.</p></div>
+      <div className="owner-hero-copy">
+        <p className="owner-kicker owner-kicker--light">Monday, July 20 · 6:42 AM EDT</p>
+        <h1>Good morning,<br />Fahad.</h1>
+        <div className="owner-readiness"><span>Network readiness</span><strong>96.8%</strong><p>One exception needs a decision.</p></div>
+      </div>
+      <figure className="owner-hero-visual">
+        <Image src="/images/owner/chauffeur-escalade.jpg" width={1536} height={1024} priority alt="Altaie chauffeur opening a black executive SUV for a corporate traveler beside limestone columns" />
+        <figcaption><span>Live service</span><strong>Executive SUV · DC core</strong><small>Chauffeur verified · vehicle inspected</small></figcaption>
+      </figure>
     </section>
 
     <section className="owner-metric-grid" aria-label="Business overview">
@@ -134,6 +142,17 @@ function Network() {
   return <div className="owner-view">
     <div className="owner-page-head"><div><p className="owner-kicker">Partner network</p><h1>Capacity before promises.</h1><p>Four active operators · 26 chauffeurs · 24 vehicles</p></div><button className="owner-button owner-button--dark">Invite operator</button></div>
     <section className="owner-network-summary"><Metric index="01" label="Core coverage" value="100%" note="DC + three airports" /><Metric index="02" label="Available now" value="19" note="Vehicles across network" /><Metric index="03" label="Network quality" value="96.3" note="Weighted partner score" /></section>
+    <section className="owner-fleet-showcase">
+      <div className="owner-fleet-heading"><p className="owner-kicker owner-kicker--light">Vehicle classes</p><h2>Black fleet.<br />Verified standards.</h2><p>Specific models remain subject to partner availability and written confirmation.</p></div>
+      <figure>
+        <Image src="/images/owner/chauffeur-escalade.jpg" width={1536} height={1024} alt="Professional chauffeur and corporate traveler beside a black Escalade-class executive SUV" />
+        <figcaption><div><span>Core SUV</span><strong>Cadillac Escalade ESV</strong></div><dl><div><dt>Network</dt><dd>8 vetted</dd></div><div><dt>Use</dt><dd>Airport · events</dd></div></dl></figcaption>
+      </figure>
+      <figure>
+        <Image src="/images/owner/maybach-arrival.jpg" width={1536} height={1024} alt="Black Maybach-class flagship sedan with a professional chauffeur at a limestone-column arrival" />
+        <figcaption><div><span>Flagship sedan</span><strong>Mercedes-Maybach S-Class</strong></div><dl><div><dt>Network</dt><dd>2 by request</dd></div><div><dt>Use</dt><dd>VIP itineraries</dd></div></dl></figcaption>
+      </figure>
+    </section>
     <section className="owner-network-card"><SectionTitle eyebrow="Operating partners" title="Qualified supply, ranked by performance." /><div className="owner-partner-table"><div className="owner-table-labels"><span>Partner</span><span>Coverage</span><span>Capacity</span><span>On time</span><span>Score</span><span>Status</span></div>{partners.map((partner) => <button key={partner.code}><div className="owner-partner-name"><span>{partner.code}</span><strong>{partner.name}</strong></div><span>{partner.zones}</span><span>{partner.sedans} S · {partner.suvs} SUV · {partner.sprinters} SP</span><strong>{partner.onTime}</strong><strong>{partner.score}</strong><Badge tone={partner.status === "Preferred" ? "dark" : "stone"}>{partner.status}</Badge></button>)}</div></section>
     <div className="owner-network-bottom"><section><SectionTitle eyebrow="Service-cell readiness" title="Today’s usable capacity" /><CoverageBars /></section><section><SectionTitle eyebrow="Redundancy rules" title="Minimum launch standard" /><ul className="owner-rule-list"><li><span>01</span>Primary and backup coverage per airport</li><li><span>02</span>Two qualified partners per core class</li><li><span>03</span>Four-minute response before cascade</li><li><span>04</span>Manual desk approval for exceptions</li></ul></section></div>
   </div>;

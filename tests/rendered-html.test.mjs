@@ -38,6 +38,8 @@ test("all required public routes and lead endpoint exist", async () => {
     "app/terms/page.tsx",
     "app/portal/page.tsx",
     "app/owner/page.tsx",
+    "public/images/owner/chauffeur-escalade.jpg",
+    "public/images/owner/maybach-arrival.jpg",
     "app/api/leads/route.ts",
   ]) {
     await access(new URL(path, root));
@@ -59,4 +61,6 @@ test("all required public routes and lead endpoint exist", async () => {
   assert.match(owner, /Partner network/);
   assert.match(owner, /Contribution margin/);
   assert.match(owner, /Compliance center/);
+  assert.match(owner, /Cadillac Escalade ESV/);
+  assert.match(owner, /Mercedes-Maybach S-Class/);
 });
