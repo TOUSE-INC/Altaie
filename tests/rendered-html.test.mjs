@@ -63,11 +63,16 @@ test("all required public routes and lead endpoint exist", async () => {
   assert.doesNotMatch(portal, /sends the fixed quote|Send for review|Quote approval/);
 
   const booking = await source("app/book/DirectBooking.tsx");
+  const bookingCss = await source("app/book/booking.css");
   assert.match(booking, /Direct booking/);
   assert.match(booking, /See available vehicles/);
   assert.match(booking, /Confirm booking/);
   assert.match(booking, /You&apos;re booked/);
   assert.doesNotMatch(booking, /request a quote|send for review/i);
+  assert.match(bookingCss, /100svh/);
+  assert.match(bookingCss, /-webkit-text-size-adjust/);
+  assert.match(bookingCss, /@supports \(-webkit-touch-callout: none\)/);
+  assert.match(bookingCss, /height: clamp\(168px, 52vw, 228px\)/);
 
   const owner = await source("app/owner/OwnerDashboard.tsx");
   assert.match(owner, /Good morning,/);

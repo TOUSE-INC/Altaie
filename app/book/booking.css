@@ -1,6 +1,7 @@
 body:has(.direct-booking) { background: #f5f4ef; }
-.direct-booking { --db-ink: #050505; --db-marble: #f5f4ef; --db-limestone: #d7d2c8; --db-column: #8c8982; min-height: calc(100vh - 78px); background: var(--db-marble); color: var(--db-ink); }
+.direct-booking { --db-ink: #050505; --db-marble: #f5f4ef; --db-limestone: #d7d2c8; --db-column: #8c8982; min-height: calc(100vh - 78px); min-height: calc(100svh - 78px); background: var(--db-marble); color: var(--db-ink); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .direct-booking button, .direct-booking input, .direct-booking select, .direct-booking textarea { font: inherit; }
+.direct-booking button, .direct-booking label, .direct-booking a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 .direct-booking__header { min-height: 58px; display: flex; align-items: center; justify-content: space-between; padding: 0 max(24px, calc((100vw - 1500px) / 2)); border-bottom: 1px solid rgba(5,5,5,.15); background: white; }
 .direct-booking__header > div, .direct-booking__header > p { display: flex; align-items: center; gap: 10px; }
 .direct-booking__header > div > span, .direct-booking__header > p { margin: 0; font-size: .6rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
@@ -11,7 +12,7 @@ body:has(.direct-booking) { background: #f5f4ef; }
 .direct-mark::before { left: 7px; }
 .direct-mark::after { right: 7px; }
 .direct-mark i { left: 12px; height: 19px; }
-.direct-booking__layout { width: min(1500px, 100%); min-height: calc(100vh - 136px); margin: 0 auto; display: grid; grid-template-columns: 245px minmax(0, 1fr) 310px; }
+.direct-booking__layout { width: min(1500px, 100%); min-height: calc(100vh - 136px); min-height: calc(100svh - 136px); margin: 0 auto; display: grid; grid-template-columns: 245px minmax(0, 1fr) 310px; }
 .direct-booking__steps { display: flex; flex-direction: column; padding: 46px 26px; border-right: 1px solid rgba(5,5,5,.15); background: #050505; color: white; }
 .direct-booking__steps h1 { margin: 10px 0 48px; color: white; font-size: clamp(2.8rem, 4vw, 4.7rem); }
 .direct-kicker { margin: 0 0 8px; color: #77756f; font-size: .56rem; font-weight: 900; letter-spacing: .13em; text-transform: uppercase; }
@@ -41,8 +42,11 @@ body:has(.direct-booking) { background: #f5f4ef; }
 .direct-field { display: flex; flex-direction: column; gap: 6px; }
 .direct-field--wide { grid-column: 1 / -1; }
 .direct-field > span { color: #56544f; font-size: .57rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
-.direct-field input, .direct-field select, .direct-field textarea { width: 100%; border: 1px solid #c3c0b8; border-radius: 0; background: white; color: #050505; padding: 12px 13px; font-size: .79rem; }
+.direct-field input, .direct-field select, .direct-field textarea { width: 100%; min-width: 0; border: 1px solid #c3c0b8; border-radius: 0; background: white; color: #050505; padding: 12px 13px; font-size: .79rem; box-shadow: none; }
+.direct-field input, .direct-field textarea { -webkit-appearance: none; appearance: none; }
 .direct-field input, .direct-field select { min-height: 48px; }
+.direct-field input[type="date"], .direct-field input[type="time"] { display: block; line-height: 1.2; }
+.direct-field input[type="date"]::-webkit-date-and-time-value, .direct-field input[type="time"]::-webkit-date-and-time-value { min-height: 1.2em; margin: 0; text-align: left; }
 .direct-field textarea { resize: vertical; }
 .direct-field input:focus, .direct-field select:focus, .direct-field textarea:focus { outline: 2px solid #050505; outline-offset: 1px; }
 .direct-inline-note { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start; margin: 25px 0; padding: 16px; border-left: 3px solid #050505; background: #e8e4dc; }
@@ -87,7 +91,7 @@ body:has(.direct-booking) { background: #f5f4ef; }
 .direct-summary-help { margin-top: 30px; padding: 17px; background: white; }
 .direct-summary-help strong { font-size: .65rem; }
 .direct-summary-help p { margin: 6px 0 0; color: #6d6b66; font-size: .59rem; }
-.direct-booking--confirmed { min-height: calc(100vh - 78px); display: grid; place-items: center; padding: 60px 20px; }
+.direct-booking--confirmed { min-height: calc(100vh - 78px); min-height: calc(100svh - 78px); display: grid; place-items: center; padding: 60px 20px; }
 .direct-confirmation { width: min(760px, 100%); text-align: center; }
 .direct-confirmation__mark { width: 54px; height: 54px; display: grid; place-items: center; margin: 0 auto 24px; background: #050505; color: white; }
 .direct-confirmation h1 { margin-bottom: 18px; font-size: clamp(4.5rem, 10vw, 8rem); }
@@ -113,34 +117,44 @@ body:has(.direct-booking) { background: #f5f4ef; }
 }
 
 @media (max-width: 760px) {
-  .direct-booking { min-height: calc(100vh - 68px); }
-  .direct-booking__header { padding: 0 14px; }
+  .direct-booking { min-height: calc(100vh - 68px); min-height: calc(100svh - 68px); }
+  .direct-booking__header { min-height: 56px; padding-right: max(14px, env(safe-area-inset-right)); padding-left: max(14px, env(safe-area-inset-left)); }
   .direct-booking__layout { display: block; }
   .direct-booking__steps { padding: 22px 16px; }
   .direct-booking__steps > .direct-kicker, .direct-booking__steps > h1, .direct-booking__assurance { display: none; }
   .direct-booking__steps ol { grid-template-columns: repeat(3, 1fr); gap: 4px; }
   .direct-booking__steps li { min-height: 42px; display: flex; justify-content: center; padding: 0 5px; }
   .direct-booking__steps li strong { display: none; }
-  .direct-booking__main { padding: 40px 14px 55px; }
+  .direct-booking__main { padding: 40px max(14px, env(safe-area-inset-right)) calc(55px + env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); }
   .direct-screen__heading h2 { font-size: clamp(3.5rem, 16vw, 5.5rem); }
   .direct-service-tabs, .direct-fields { grid-template-columns: 1fr; }
   .direct-field--wide { grid-column: auto; }
+  .direct-field input, .direct-field select, .direct-field textarea { min-height: 50px; font-size: 16px; }
+  .direct-field textarea { min-height: 112px; }
   .direct-inline-note { grid-template-columns: 1fr; }
   .direct-inline-note span { white-space: normal; }
-  .direct-vehicles > button { grid-template-columns: 90px 1fr; gap: 12px; padding: 0 40px 0 0; }
-  .direct-vehicles > button > img { width: 90px; height: 115px; }
-  .direct-vehicle-copy { padding: 13px 0; }
-  .direct-vehicle-copy h3 { font-size: 1.15rem; }
-  .direct-vehicle-price { grid-column: 2; align-items: flex-start; padding: 0 0 13px; }
-  .direct-vehicles > button > i { right: 10px; }
+  .direct-vehicles > button { grid-template-columns: 1fr; gap: 0; padding: 0; }
+  .direct-vehicles > button > img { width: 100%; height: clamp(168px, 52vw, 228px); aspect-ratio: auto; object-fit: cover; object-position: center 48%; }
+  .direct-vehicles > button:nth-child(1) > img { object-position: 34% center; }
+  .direct-vehicle-copy { padding: 16px 48px 6px 16px; }
+  .direct-vehicle-copy h3 { font-size: 1.35rem; }
+  .direct-vehicle-price { grid-column: 1; align-items: flex-start; padding: 0 16px 16px; }
+  .direct-vehicles > button > i { top: calc(clamp(168px, 52vw, 228px) + 18px); right: 16px; transform: none; }
   .direct-screen__actions { align-items: stretch; flex-direction: column; }
   .direct-screen__actions .direct-button { width: 100%; }
   .direct-text-button { align-self: center; }
-  .direct-booking__summary { display: block; padding: 32px 20px; }
+  .direct-booking__summary { display: block; padding: 32px max(20px, env(safe-area-inset-right)) calc(32px + env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left)); }
   .direct-summary-route { padding: 25px 0; }
+  .direct-booking--confirmed { padding: 45px max(16px, env(safe-area-inset-right)) calc(45px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); }
   .direct-confirmation__card { padding: 24px; box-shadow: none; }
   .direct-confirmation__card dl { grid-template-columns: 1fr; }
   .direct-confirmation__actions { align-items: stretch; flex-direction: column; }
+}
+
+@supports (-webkit-touch-callout: none) {
+  .direct-booking__steps, .direct-booking__header { -webkit-transform: translateZ(0); }
+  .direct-field input, .direct-field select, .direct-field textarea { -webkit-border-radius: 0; }
+  .direct-vehicles > button > img { -webkit-transform: translateZ(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {

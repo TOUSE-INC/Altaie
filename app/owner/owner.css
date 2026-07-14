@@ -3,9 +3,10 @@ body:has(.owner-root) .site-footer,
 body:has(.owner-root) .skip-link { display: none; }
 body:has(.owner-root) { background: #f5f4ef; }
 
-.owner-root { --ink: #050505; --marble: #f5f4ef; --limestone: #d7d2c8; --column: #8c8982; --graphite: #444442; min-height: 100vh; display: grid; grid-template-columns: 248px 1fr; background: var(--marble); color: var(--ink); }
+.owner-root { --ink: #050505; --marble: #f5f4ef; --limestone: #d7d2c8; --column: #8c8982; --graphite: #444442; min-height: 100vh; min-height: 100svh; display: grid; grid-template-columns: 248px 1fr; background: var(--marble); color: var(--ink); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 .owner-root button, .owner-root input, .owner-root select { font: inherit; }
-.owner-sidebar { position: sticky; top: 0; z-index: 20; height: 100vh; display: flex; flex-direction: column; padding: 26px 18px; border-right: 1px solid rgba(5,5,5,.18); background: #050505; color: white; }
+.owner-root button, .owner-root a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.owner-sidebar { position: sticky; top: 0; z-index: 20; height: 100vh; height: 100svh; display: flex; flex-direction: column; padding: 26px 18px; border-right: 1px solid rgba(5,5,5,.18); background: #050505; color: white; }
 .owner-logo { display: flex; align-items: center; gap: 12px; padding: 0 8px 27px; border-bottom: 1px solid rgba(255,255,255,.16); }
 .owner-logo > div { display: flex; flex-direction: column; }
 .owner-logo strong { font-family: var(--font-serif), Georgia, serif; font-size: 1.45rem; font-weight: 500; letter-spacing: -.04em; }
@@ -27,7 +28,7 @@ body:has(.owner-root) { background: #f5f4ef; }
 .owner-sidebar-foot button { border: 0; background: transparent; color: #aaa; cursor: pointer; }
 .owner-profile { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid #777772; border-radius: 50%; color: white; font-size: .62rem; font-weight: 900; }
 .owner-main { min-width: 0; }
-.owner-topbar { position: sticky; top: 0; z-index: 15; height: 67px; display: flex; align-items: center; justify-content: space-between; padding: 0 34px; border-bottom: 1px solid rgba(5,5,5,.15); background: rgba(245,244,239,.94); backdrop-filter: blur(15px); }
+.owner-topbar { position: sticky; top: 0; z-index: 15; height: 67px; display: flex; align-items: center; justify-content: space-between; padding: 0 34px; border-bottom: 1px solid rgba(5,5,5,.15); background: rgba(245,244,239,.94); -webkit-backdrop-filter: blur(15px); backdrop-filter: blur(15px); }
 .owner-topbar > div { display: flex; align-items: center; gap: 14px; }
 .owner-topbar p { margin: 0; font-size: .67rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
 .owner-mobile-mark { display: none; }
@@ -57,7 +58,7 @@ body:has(.owner-root) { background: #f5f4ef; }
 .owner-hero-visual { position: relative; min-width: 0; min-height: 480px; margin: 0; overflow: hidden; border-left: 1px solid #30302e; background: #171716; }
 .owner-hero-visual::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,5,5,.28), transparent 40%, rgba(5,5,5,.08)); pointer-events: none; }
 .owner-hero-visual img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: 58% center; }
-.owner-hero-visual figcaption { position: absolute; z-index: 2; right: 18px; bottom: 18px; left: 18px; display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; padding: 14px 16px; border: 1px solid rgba(255,255,255,.28); background: rgba(5,5,5,.74); backdrop-filter: blur(10px); }
+.owner-hero-visual figcaption { position: absolute; z-index: 2; right: 18px; bottom: 18px; left: 18px; display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; padding: 14px 16px; border: 1px solid rgba(255,255,255,.28); background: rgba(5,5,5,.74); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
 .owner-hero-visual figcaption span { grid-row: 1 / 3; align-self: center; padding-right: 12px; border-right: 1px solid #686863; color: #a7a7a2; font-size: .52rem; font-weight: 900; letter-spacing: .1em; text-transform: uppercase; }
 .owner-hero-visual figcaption strong { font-size: .68rem; }
 .owner-hero-visual figcaption small { color: #aaa9a4; font-size: .56rem; }
@@ -306,6 +307,8 @@ body:has(.owner-root) { background: #f5f4ef; }
   .owner-hero h1 { font-size: 4.9rem; }
   .owner-readiness { width: 100%; min-width: 0; }
   .owner-hero-visual { min-height: 320px; border-top: 1px solid #30302e; border-left: 0; }
+  .owner-hero-visual { height: clamp(260px, 70vw, 360px); min-height: 0; }
+  .owner-fleet-showcase figure img { height: clamp(190px, 62vw, 290px); aspect-ratio: auto; }
   .owner-hero-visual figcaption { right: 12px; bottom: 12px; left: 12px; }
   .owner-metric-grid, .owner-account-kpis, .owner-financial-grid, .owner-network-summary { grid-template-columns: 1fr 1fr; }
   .owner-metric { min-height: 155px; padding: 18px; }
@@ -357,7 +360,7 @@ body:has(.owner-root) { background: #f5f4ef; }
   .owner-document-bars i { grid-column: 1 / -1; grid-row: 2; }
   .owner-document-bars strong { text-align: right; }
   .owner-checkpoints > div:last-child { grid-template-columns: 1fr; }
-  .owner-mobile-nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; display: flex; overflow-x: auto; min-height: 66px; padding-bottom: env(safe-area-inset-bottom); border-top: 1px solid rgba(5,5,5,.17); background: rgba(255,255,255,.96); backdrop-filter: blur(14px); }
+  .owner-mobile-nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 50; display: flex; overflow-x: auto; min-height: 66px; padding-bottom: env(safe-area-inset-bottom); border-top: 1px solid rgba(5,5,5,.17); background: rgba(255,255,255,.96); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); -webkit-overflow-scrolling: touch; }
   .owner-mobile-nav button { min-width: 82px; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border: 0; background: transparent; color: #77756f; font-size: .5rem; font-weight: 800; cursor: pointer; }
   .owner-mobile-nav button span { font-size: .5rem; }
   .owner-mobile-nav button.is-active { background: #050505; color: white; }
