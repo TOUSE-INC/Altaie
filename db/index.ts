@@ -1,14 +1,20 @@
-import { env } from "cloudflare:workers";
-import { drizzle } from "drizzle-orm/d1";
+import { drizzle } from "drizzle-orm/neon-http";
 import * as schema from "./schema";
 
-export function getD1(): D1Database {
-  if (!env.DB) {
+function createDatabase() {
+  const connectionString =
+    process.env.DATABASE_URL || process.env.POSTGRES_URL;
+
+  if (!connectionString) {
     throw new Error("Lead storage is temporarily unavailable.");
   }
-  return env.DB;
+
+  return drizzle(connectionString, { schema });
 }
 
+let database: ReturnType<typeof createDatabase> | undefined;
+
 export function getDb() {
-  return drizzle(getD1(), { schema });
+  database ??= createDatabase();
+  return database;
 }

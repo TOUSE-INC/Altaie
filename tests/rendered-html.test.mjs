@@ -9,7 +9,7 @@ async function source(path) {
 }
 
 test("production build and Altaie homepage sources are present", async () => {
-  await access(new URL("dist/server/index.js", root));
+  await access(new URL(".next/BUILD_ID", root));
   const [layout, home, chrome] = await Promise.all([
     source("app/layout.tsx"),
     source("app/page.tsx"),

@@ -1,6 +1,6 @@
-import { index, integer, sqliteTable, text, uniqueIndex } from "drizzle-orm/sqlite-core";
+import { bigint, boolean, index, integer, pgTable, text, uniqueIndex } from "drizzle-orm/pg-core";
 
-export const leads = sqliteTable("leads", {
+export const leads = pgTable("leads", {
   id: text("id").primaryKey(),
   leadType: text("lead_type", { enum: ["ride", "corporate", "partner"] }).notNull(),
   contactName: text("contact_name").notNull(),
@@ -20,18 +20,18 @@ export const leads = sqliteTable("leads", {
   passengers: text("passengers"),
   flightNumber: text("flight_number"),
   notes: text("notes"),
-  consent: integer("consent", { mode: "boolean" }).notNull().default(true),
+  consent: boolean("consent").notNull().default(true),
   status: text("status").notNull().default("new"),
   fingerprint: text("fingerprint").notNull(),
-  createdAt: integer("created_at").notNull(),
+  createdAt: bigint("created_at", { mode: "number" }).notNull(),
 }, (table) => [
   uniqueIndex("leads_fingerprint_idx").on(table.fingerprint),
   index("leads_created_at_idx").on(table.createdAt),
   index("leads_type_status_idx").on(table.leadType, table.status),
 ]);
 
-export const rateLimits = sqliteTable("rate_limits", {
+export const rateLimits = pgTable("rate_limits", {
   key: text("key").primaryKey(),
   count: integer("count").notNull().default(1),
-  windowStart: integer("window_start").notNull(),
+  windowStart: bigint("window_start", { mode: "number" }).notNull(),
 });

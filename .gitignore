@@ -15,6 +15,7 @@
 
 # next.js
 /.next/
+# legacy Sites build cache
 /.vinext/
 /out/
 
@@ -37,6 +38,7 @@ yarn-error.log*
 # typescript
 next-env.d.ts
 /dist/
+# legacy Sites runtime cache
 /.wrangler/
 /outputs/
 /work/
