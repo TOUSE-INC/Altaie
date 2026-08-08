@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { OwnerDashboard } from "./OwnerDashboard";
 import "./owner.css";
+import "./mobile-safari.css";
 
 export const metadata: Metadata = {
   title: "Owner command center",

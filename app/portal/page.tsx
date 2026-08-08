@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PortalPrototype } from "./PortalPrototype";
 import "./portal.css";
+import "./mobile-safari.css";
 
 export const metadata: Metadata = {
   title: "Client portal preview",
