@@ -13,10 +13,10 @@ export const metadata: Metadata = {
 export default function OwnerPage() {
   return (
     <>
+      <AdvancedMobileOwner />
       <div className="owner-desktop-existing">
         <OwnerDashboard />
       </div>
-      <AdvancedMobileOwner />
     </>
   );
 }
