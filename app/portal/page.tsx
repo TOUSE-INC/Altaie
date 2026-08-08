@@ -13,10 +13,10 @@ export const metadata: Metadata = {
 export default function PortalPage() {
   return (
     <>
+      <AdvancedMobilePortal />
       <div className="portal-desktop-existing">
         <PortalPrototype />
       </div>
-      <AdvancedMobilePortal />
     </>
   );
 }
