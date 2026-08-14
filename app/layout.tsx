@@ -1,11 +1,20 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
 import { Manrope, Newsreader } from "next/font/google";
 import { Footer, Header } from "./components/SiteChrome";
 import "./globals.css";
+import "./mobile-safari.css";
 
 const sans = Manrope({ variable: "--font-sans", subsets: ["latin"] });
 const serif = Newsreader({ variable: "--font-serif", subsets: ["latin"] });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  interactiveWidget: "resizes-visual",
+  themeColor: "#050505",
+};
 
 export async function generateMetadata(): Promise<Metadata> {
   const requestHeaders = await headers();

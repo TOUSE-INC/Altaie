@@ -1,0 +1,389 @@
+@media (max-width: 820px) {
+  body:has(.direct-booking) .site-header,
+  body:has(.direct-booking) .site-footer {
+    display: none;
+  }
+
+  body:has(.direct-booking) {
+    background: #f5f4ef;
+  }
+
+  .direct-booking {
+    min-height: 100svh;
+    padding-bottom: calc(18px + var(--safe-bottom));
+  }
+
+  @supports (height: 100dvh) {
+    .direct-booking {
+      min-height: 100dvh;
+    }
+  }
+
+  .direct-booking__header {
+    position: sticky;
+    top: 0;
+    z-index: 70;
+    min-height: calc(58px + var(--safe-top));
+    padding-top: var(--safe-top);
+    padding-left: max(16px, var(--safe-left));
+    padding-right: max(16px, var(--safe-right));
+    background: rgba(255, 255, 255, 0.9);
+    -webkit-backdrop-filter: saturate(160%) blur(20px);
+    backdrop-filter: saturate(160%) blur(20px);
+  }
+
+  .direct-booking__header > p {
+    font-size: 0.53rem;
+  }
+
+  .direct-booking__layout {
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .direct-booking__steps {
+    position: sticky;
+    top: calc(58px + var(--safe-top));
+    z-index: 60;
+    display: block;
+    padding: 8px max(12px, var(--safe-right)) 8px max(12px, var(--safe-left));
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(5, 5, 5, 0.94);
+    -webkit-backdrop-filter: saturate(140%) blur(18px);
+    backdrop-filter: saturate(140%) blur(18px);
+  }
+
+  .direct-booking__steps > .direct-kicker,
+  .direct-booking__steps > h1,
+  .direct-booking__assurance {
+    display: none;
+  }
+
+  .direct-booking__steps ol {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .direct-booking__steps li {
+    min-height: 42px;
+    grid-template-columns: 18px minmax(0, 1fr);
+    gap: 6px;
+    padding: 0 8px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .direct-booking__steps li strong {
+    overflow: hidden;
+    font-size: 0.56rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .direct-booking__steps li.is-current {
+    border-color: #fff;
+    background: #fff;
+    color: #050505;
+  }
+
+  .direct-booking__main {
+    min-width: 0;
+    padding: 30px max(18px, var(--safe-right)) 118px max(18px, var(--safe-left));
+  }
+
+  .direct-screen {
+    width: 100%;
+  }
+
+  .direct-screen__heading {
+    margin-bottom: 26px;
+  }
+
+  .direct-screen__heading h2 {
+    margin-bottom: 10px;
+    font-size: clamp(2.8rem, 14vw, 4.1rem);
+    line-height: 0.94;
+  }
+
+  .direct-screen__heading > p:last-child {
+    font-size: 0.86rem;
+    line-height: 1.55;
+  }
+
+  .direct-service-tabs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    margin-bottom: 22px;
+    padding-bottom: 22px;
+  }
+
+  .direct-service-tabs span {
+    min-height: 50px;
+    padding: 0 8px;
+    border-radius: 14px;
+    font-size: 0.59rem;
+  }
+
+  .direct-fields {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .direct-field--wide {
+    grid-column: auto;
+  }
+
+  .direct-field {
+    gap: 7px;
+  }
+
+  .direct-field > span {
+    font-size: 0.61rem;
+  }
+
+  .direct-field input,
+  .direct-field select,
+  .direct-field textarea {
+    min-height: 54px;
+    padding: 13px 14px;
+    border-color: rgba(5, 5, 5, 0.2);
+    border-radius: 14px;
+    background: #fff;
+    font-size: 16px !important;
+  }
+
+  .direct-field textarea {
+    min-height: 120px;
+  }
+
+  .direct-inline-note {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    margin: 20px 0;
+    padding: 16px;
+    border-left: 0;
+    border-radius: 16px;
+  }
+
+  .direct-inline-note span {
+    white-space: normal;
+  }
+
+  .direct-button {
+    min-height: 54px;
+    padding: 0 18px;
+    border-radius: 14px;
+    font-size: 0.65rem;
+  }
+
+  .direct-button--wide {
+    position: sticky;
+    z-index: 35;
+    bottom: calc(12px + var(--safe-bottom));
+    min-height: 58px;
+    box-shadow: 0 18px 45px rgba(5, 5, 5, 0.18);
+  }
+
+  .direct-vehicles {
+    gap: 10px;
+  }
+
+  .direct-vehicles > button {
+    min-height: 126px;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 14px;
+    padding: 0 42px 0 0;
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  .direct-vehicles > button:hover,
+  .direct-vehicles > button.is-selected {
+    box-shadow: inset 3px 0 #050505;
+  }
+
+  .direct-vehicles > button > img {
+    width: 112px;
+    height: 126px;
+  }
+
+  .direct-vehicle-copy {
+    padding: 16px 0 8px;
+  }
+
+  .direct-vehicle-copy h3 {
+    font-size: 1.18rem;
+  }
+
+  .direct-vehicle-copy p,
+  .direct-vehicle-copy small {
+    font-size: 0.62rem;
+    line-height: 1.4;
+  }
+
+  .direct-vehicle-price {
+    grid-column: 2;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 0 0 14px;
+  }
+
+  .direct-vehicle-price strong {
+    font-size: 1.35rem;
+  }
+
+  .direct-vehicles > button > i {
+    right: 13px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .direct-screen__actions {
+    position: sticky;
+    z-index: 35;
+    bottom: calc(12px + var(--safe-bottom));
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin: 24px -8px 0;
+    padding: 8px;
+    border: 1px solid rgba(5, 5, 5, 0.12);
+    border-radius: 18px;
+    background: rgba(245, 244, 239, 0.9);
+    box-shadow: 0 18px 48px rgba(5, 5, 5, 0.12);
+    -webkit-backdrop-filter: saturate(140%) blur(18px);
+    backdrop-filter: saturate(140%) blur(18px);
+  }
+
+  .direct-screen__actions .direct-button {
+    width: 100%;
+  }
+
+  .direct-text-button {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 0;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .direct-consent {
+    gap: 12px;
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  .direct-consent input {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 20px;
+  }
+
+  .direct-prototype-note {
+    font-size: 0.65rem;
+    line-height: 1.5;
+  }
+
+  .direct-booking__summary {
+    display: none;
+  }
+
+  .direct-booking--confirmed {
+    min-height: 100svh;
+    padding: calc(40px + var(--safe-top)) max(18px, var(--safe-right)) calc(42px + var(--safe-bottom)) max(18px, var(--safe-left));
+  }
+
+  @supports (height: 100dvh) {
+    .direct-booking--confirmed {
+      min-height: 100dvh;
+    }
+  }
+
+  .direct-confirmation {
+    width: 100%;
+  }
+
+  .direct-confirmation h1 {
+    font-size: clamp(3.7rem, 18vw, 5.5rem);
+  }
+
+  .direct-confirmation__card {
+    padding: 22px;
+    border-radius: 18px;
+  }
+
+  .direct-confirmation__card dl {
+    grid-template-columns: 1fr;
+  }
+
+  .direct-confirmation__actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .direct-confirmation__actions .direct-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 390px) {
+  .direct-booking__header > p span,
+  .direct-booking__header > p::after {
+    display: none;
+  }
+
+  .direct-booking__steps li {
+    grid-template-columns: 1fr;
+    place-items: center;
+    text-align: center;
+  }
+
+  .direct-booking__steps li span {
+    display: none;
+  }
+
+  .direct-service-tabs span {
+    padding: 0 4px;
+    font-size: 0.54rem;
+  }
+
+  .direct-vehicles > button {
+    grid-template-columns: 96px minmax(0, 1fr);
+  }
+
+  .direct-vehicles > button > img {
+    width: 96px;
+  }
+
+  .direct-vehicle-price {
+    grid-column: 2;
+  }
+}
+
+@supports (-webkit-touch-callout: none) {
+  @media (max-width: 820px) {
+    .direct-field input,
+    .direct-field select,
+    .direct-field textarea {
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .direct-field select {
+      background-image: linear-gradient(45deg, transparent 50%, #555 50%), linear-gradient(135deg, #555 50%, transparent 50%);
+      background-position: calc(100% - 18px) calc(50% - 2px), calc(100% - 13px) calc(50% - 2px);
+      background-size: 5px 5px, 5px 5px;
+      background-repeat: no-repeat;
+      padding-right: 36px;
+    }
+  }
+}

@@ -21,22 +21,37 @@ npm install
 npm run dev
 npm run lint
 npm test
+npm run check
 npm run db:migrate
 ```
 
 Copy `.env.example` to `.env.local` only when credentials are available. Do not put secrets in `.openai/hosting.json`.
 
+`npm run check` is the release gate used by GitHub Actions. It runs lint, creates an optimized production build, starts that build, and exercises the public request surface plus protected dashboard behavior over HTTP.
+
+## Protected demonstrations
+
+`/portal` and `/owner` contain demonstration data, not live customer or operating records. Both routes require HTTP Basic credentials supplied by `ALTAIE_DASHBOARD_USERNAME` and `ALTAIE_DASHBOARD_PASSWORD`.
+
+- With both values configured, unauthorized visitors receive an authentication challenge.
+- With either value missing, both routes return `404` and remain closed.
+- Use a long, unique password and provide access only over Vercel HTTPS.
+
+Basic authentication is a private-beta release gate. Replace it with role-based customer and operator identity before either dashboard holds real data.
+
 ## Production configuration
 
 - `NEXT_PUBLIC_SITE_URL=https://altaie.app`
-- `DATABASE_URL` — injected by the Neon integration in Vercel
+- `DATABASE_URL` or `POSTGRES_URL` — injected by the Neon integration in Vercel
 - `NEXT_PUBLIC_MOOVS_PORTAL_URL` — Moovs widget/iframe URL
 - `RESEND_API_KEY` — optional until operational email is connected
 - `OPS_NOTIFICATION_EMAIL`
 - `LEAD_FROM_EMAIL`
 - `RATE_LIMIT_SALT`
+- `ALTAIE_DASHBOARD_USERNAME`
+- `ALTAIE_DASHBOARD_PASSWORD`
 
-The production site must not be made public until counsel clears the Altaie name, policies, licensing model, partner authorities, insurance requirements, and applicable DFHV/WMATC obligations.
+Technical promotion requires a green GitHub quality check, a ready Vercel deployment for the same commit, external verification of protected routes, and one controlled request proving API-to-database persistence. The production site must not be launched under the custom domain until counsel also clears the Altaie name, policies, licensing model, partner authorities, insurance requirements, and applicable DFHV/WMATC obligations.
 
 ## Vercel deployment
 
@@ -44,4 +59,5 @@ The production site must not be made public until counsel clears the Altaie name
 2. Add a Neon Postgres resource to that project through Vercel Marketplace.
 3. Configure the production environment variables listed above.
 4. Run `npm run db:migrate` once against the production database.
-5. Deploy a production candidate without assigning the domain, verify it, then promote it to `altaie.app`.
+5. Deploy a preview candidate, verify the request flow and protected routes, and inspect runtime errors.
+6. Promote only after the technical checks and business launch approvals both pass; then attach `altaie.app`.

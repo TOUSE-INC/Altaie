@@ -1,13 +1,22 @@
 import type { Metadata } from "next";
 import { OwnerDashboard } from "./OwnerDashboard";
+import { AdvancedMobileOwner } from "./AdvancedMobileOwner";
 import "./owner.css";
+import "./mobile-safari.css";
 
 export const metadata: Metadata = {
   title: "Owner command center",
-  description: "Interactive Altaie operations and business dashboard for the company owner.",
+  description: "Altaie private operations command center for live movements, dispatch, network coverage, accounts, and financial visibility.",
   robots: { index: false, follow: false },
 };
 
 export default function OwnerPage() {
-  return <OwnerDashboard />;
+  return (
+    <>
+      <AdvancedMobileOwner />
+      <div className="owner-desktop-existing">
+        <OwnerDashboard />
+      </div>
+    </>
+  );
 }
