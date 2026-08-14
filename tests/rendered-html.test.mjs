@@ -1,87 +1,175 @@
 import assert from "node:assert/strict";
-import { access, readFile } from "node:fs/promises";
-import test from "node:test";
+import { spawn } from "node:child_process";
+import { once } from "node:events";
+import { access } from "node:fs/promises";
+import net from "node:net";
+import { fileURLToPath } from "node:url";
+import { after, before, test } from "node:test";
 
 const root = new URL("../", import.meta.url);
+const rootPath = fileURLToPath(root);
+const nextBin = fileURLToPath(new URL("../node_modules/next/dist/bin/next", import.meta.url));
+const dashboardUsername = "release-test";
+const dashboardPassword = "a-long-preview-password";
 
-async function source(path) {
-  return readFile(new URL(path, root), "utf8");
+function reservePort() {
+  return new Promise((resolve, reject) => {
+    const socket = net.createServer();
+    socket.unref();
+    socket.once("error", reject);
+    socket.listen(0, "127.0.0.1", () => {
+      const address = socket.address();
+      socket.close(() => resolve(address.port));
+    });
+  });
 }
 
-test("production build and Altaie homepage sources are present", async () => {
-  await access(new URL(".next/BUILD_ID", root));
-  const [layout, home, chrome] = await Promise.all([
-    source("app/layout.tsx"),
-    source("app/page.tsx"),
-    source("app/components/SiteChrome.tsx"),
-  ]);
+async function startProductionServer({ withDashboardCredentials = true } = {}) {
+  const port = await reservePort();
+  const env = {
+    ...process.env,
+    NODE_ENV: "production",
+  };
 
-  assert.match(layout, /Altaie \| Washington, handled\./);
-  assert.match(layout, /Altaie — Washington, handled\./);
-  assert.match(home, /Washington,/);
-  assert.match(home, /application\/ld\+json/);
-  assert.match(home, /DCA.*IAD.*BWI/s);
-  assert.match(chrome, /Book a ride/);
-  assert.doesNotMatch(`${layout}${home}${chrome}`, /Sable Mile|react-loading-skeleton|Your site is taking shape/i);
-});
-
-test("all required public routes and lead endpoint exist", async () => {
-  for (const path of [
-    "app/services/page.tsx",
-    "app/corporate/page.tsx",
-    "app/airports/page.tsx",
-    "app/standards/page.tsx",
-    "app/book/page.tsx",
-    "app/book/DirectBooking.tsx",
-    "app/contact/page.tsx",
-    "app/partner-network/page.tsx",
-    "app/privacy/page.tsx",
-    "app/terms/page.tsx",
-    "app/portal/page.tsx",
-    "app/owner/page.tsx",
-    "public/images/owner/chauffeur-escalade.jpg",
-    "public/images/owner/maybach-arrival.jpg",
-    "public/images/owner/icons/escalade-fleet.jpg",
-    "public/images/owner/icons/maybach-fleet.jpg",
-    "public/images/owner/icons/driver-marcus.jpg",
-    "public/images/owner/icons/driver-lena.jpg",
-    "public/images/owner/icons/driver-omar.jpg",
-    "app/api/leads/route.ts",
-  ]) {
-    await access(new URL(path, root));
+  if (withDashboardCredentials) {
+    env.ALTAIE_DASHBOARD_USERNAME = dashboardUsername;
+    env.ALTAIE_DASHBOARD_PASSWORD = dashboardPassword;
+  } else {
+    delete env.ALTAIE_DASHBOARD_USERNAME;
+    delete env.ALTAIE_DASHBOARD_PASSWORD;
   }
 
-  const leadRoute = await source("app/api/leads/route.ts");
-  assert.match(leadRoute, /"ride", "corporate", "partner"/);
-  assert.match(leadRoute, /RateLimitError/);
-  assert.match(leadRoute, /Altaie launch desk/);
+  const child = spawn(
+    process.execPath,
+    [nextBin, "start", "-H", "127.0.0.1", "-p", String(port)],
+    { cwd: rootPath, env, stdio: ["ignore", "pipe", "pipe"] },
+  );
+  let output = "";
+  child.stdout.on("data", (chunk) => { output += chunk; });
+  child.stderr.on("data", (chunk) => { output += chunk; });
 
-  const portal = await source("app/portal/PortalPrototype.tsx");
-  assert.match(portal, /Book a ride/);
-  assert.match(portal, /Coordination desk/);
-  assert.match(portal, /Production reservations, accounts, payments, and ride history remain connected through Moovs/);
-  assert.doesNotMatch(portal, /sends the fixed quote|Send for review|Quote approval/);
+  const baseUrl = `http://127.0.0.1:${port}`;
+  for (let attempt = 0; attempt < 100; attempt += 1) {
+    if (child.exitCode !== null) {
+      throw new Error(`Next.js exited before becoming ready.\n${output}`);
+    }
 
-  const booking = await source("app/book/DirectBooking.tsx");
-  const bookingCss = await source("app/book/booking.css");
-  assert.match(booking, /Direct booking/);
-  assert.match(booking, /See available vehicles/);
-  assert.match(booking, /Confirm booking/);
-  assert.match(booking, /You&apos;re booked/);
-  assert.doesNotMatch(booking, /request a quote|send for review/i);
-  assert.match(bookingCss, /100svh/);
-  assert.match(bookingCss, /-webkit-text-size-adjust/);
-  assert.match(bookingCss, /@supports \(-webkit-touch-callout: none\)/);
-  assert.match(bookingCss, /height: clamp\(168px, 52vw, 228px\)/);
+    try {
+      const response = await fetch(baseUrl);
+      if (response.ok) {
+        return {
+          baseUrl,
+          async stop() {
+            if (child.exitCode !== null) return;
+            child.kill("SIGTERM");
+            await Promise.race([
+              once(child, "exit"),
+              new Promise((resolve) => setTimeout(resolve, 5_000)),
+            ]);
+            if (child.exitCode === null) child.kill("SIGKILL");
+          },
+        };
+      }
+    } catch {
+      // The server is still starting.
+    }
 
-  const owner = await source("app/owner/OwnerDashboard.tsx");
-  assert.match(owner, /Good morning,/);
-  assert.match(owner, /Live operations/);
-  assert.match(owner, /Partner network/);
-  assert.match(owner, /Contribution margin/);
-  assert.match(owner, /Compliance center/);
-  assert.match(owner, /Cadillac Escalade ESV/);
-  assert.match(owner, /Mercedes-Maybach S-Class/);
-  assert.match(owner, /People and vehicles/);
-  assert.match(owner, /Chauffeurs on duty/);
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+
+  child.kill("SIGKILL");
+  throw new Error(`Next.js did not become ready.\n${output}`);
+}
+
+let server;
+
+before(async () => {
+  await access(new URL(".next/BUILD_ID", root));
+  server = await startProductionServer();
+});
+
+after(async () => {
+  await server?.stop();
+});
+
+test("the public launch surface renders the truthful private-beta journey", async () => {
+  const [homeResponse, bookResponse, servicesResponse, contactResponse, termsResponse] = await Promise.all([
+    fetch(server.baseUrl),
+    fetch(`${server.baseUrl}/book`),
+    fetch(`${server.baseUrl}/services`),
+    fetch(`${server.baseUrl}/contact`),
+    fetch(`${server.baseUrl}/terms`),
+  ]);
+
+  assert.equal(homeResponse.status, 200);
+  const homeHtml = await homeResponse.text();
+  assert.match(homeHtml, /Washington/);
+  assert.doesNotMatch(homeHtml, /available inventory is shown upfront|direct booking/i);
+
+  assert.equal(bookResponse.status, 200);
+  const bookingHtml = await bookResponse.text();
+  assert.match(bookingHtml, /Altaie private beta/);
+  assert.match(bookingHtml, /Service request/);
+  assert.doesNotMatch(bookingHtml, /fixed-price Altaie|Live DC inventory|You(?:&apos;|')re booked/);
+
+  assert.equal(servicesResponse.status, 200);
+  const servicesHtml = await servicesResponse.text();
+  assert.match(servicesHtml, /request/i);
+  assert.doesNotMatch(servicesHtml, /Available means bookable|choose from available vehicles|directly confirmed/i);
+
+  assert.equal(contactResponse.status, 200);
+  assert.doesNotMatch(await contactResponse.text(), /Open direct booking/i);
+
+  assert.equal(termsResponse.status, 200);
+  const termsHtml = await termsResponse.text();
+  assert.match(termsHtml, /Submitting a request does not confirm a ride/i);
+  assert.doesNotMatch(termsHtml, /prototype demonstrates confirmation/i);
+});
+
+test("dashboard routes challenge anonymous visitors and accept configured credentials", async () => {
+  for (const path of ["/owner", "/portal"]) {
+    const anonymousResponse = await fetch(`${server.baseUrl}${path}`, { redirect: "manual" });
+    assert.equal(anonymousResponse.status, 401);
+    assert.match(anonymousResponse.headers.get("www-authenticate") ?? "", /^Basic /);
+    assert.match(anonymousResponse.headers.get("cache-control") ?? "", /no-store/);
+    assert.match(anonymousResponse.headers.get("x-robots-tag") ?? "", /noindex/);
+
+    const wrongAuthorization = Buffer.from(`${dashboardUsername}:incorrect`).toString("base64");
+    const wrongCredentialsResponse = await fetch(`${server.baseUrl}${path}`, {
+      headers: { authorization: `Basic ${wrongAuthorization}` },
+      redirect: "manual",
+    });
+    assert.equal(wrongCredentialsResponse.status, 401);
+
+    const authorization = Buffer.from(`${dashboardUsername}:${dashboardPassword}`).toString("base64");
+    const authenticatedResponse = await fetch(`${server.baseUrl}${path}`, {
+      headers: { authorization: `Basic ${authorization}` },
+    });
+    assert.equal(authenticatedResponse.status, 200);
+  }
+});
+
+test("dashboard routes fail closed when credentials are not configured", async () => {
+  const closedServer = await startProductionServer({ withDashboardCredentials: false });
+  try {
+    for (const path of ["/owner", "/portal"]) {
+      const response = await fetch(`${closedServer.baseUrl}${path}`, { redirect: "manual" });
+      assert.equal(response.status, 404);
+      assert.match(response.headers.get("cache-control") ?? "", /no-store/);
+      assert.match(response.headers.get("x-robots-tag") ?? "", /noindex/);
+    }
+  } finally {
+    await closedServer.stop();
+  }
+});
+
+test("the lead endpoint rejects malformed requests before touching integrations", async () => {
+  const response = await fetch(`${server.baseUrl}/api/leads`, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({}),
+  });
+
+  assert.equal(response.status, 400);
+  assert.deepEqual(await response.json(), { error: "Choose a valid request type." });
 });

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 
 type Phase = "trip" | "vehicle" | "checkout" | "submitted";
 type Service = "one-way" | "round-trip" | "hourly";
@@ -107,7 +107,7 @@ export function DirectBooking() {
   const [phase, setPhase] = useState<Phase>("trip");
   const [service, setService] = useState<Service>("one-way");
   const [vehicleId, setVehicleId] = useState<VehicleId>("suv");
-  const [today, setToday] = useState("");
+  const dateInputRef = useRef<HTMLInputElement>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [serverMessage, setServerMessage] = useState("");
@@ -129,7 +129,9 @@ export function DirectBooking() {
   });
 
   useEffect(() => {
-    setToday(formatLocalDate(new Date()));
+    if (dateInputRef.current) {
+      dateInputRef.current.min = formatLocalDate(new Date());
+    }
   }, []);
 
   const selectedVehicle = useMemo(
@@ -294,7 +296,7 @@ export function DirectBooking() {
                 </label>
                 <label className="direct-field">
                   <span>Date</span>
-                  <input type="date" value={trip.date} min={today || undefined} onChange={(event) => setTrip({ ...trip, date: event.target.value })} required />
+                  <input ref={dateInputRef} type="date" value={trip.date} onChange={(event) => setTrip({ ...trip, date: event.target.value })} required />
                 </label>
                 <label className="direct-field">
                   <span>Pickup time</span>

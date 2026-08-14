@@ -4,7 +4,7 @@ import { CTA, NumberedList } from "./components/Content";
 const services = [
   { index: "01", title: "Airport arrivals", body: "Flight-aware coordination for DCA, IAD, and BWI, including a documented 60-minute arrival grace period.", href: "/airports" },
   { index: "02", title: "Hourly assignments", body: "One chauffeur, one vehicle, and one accountable desk across a day of meetings, changes, and waits.", href: "/services#hourly" },
-  { index: "03", title: "Corporate movement", body: "Assistant-friendly booking, centralized preferences, and consistent confirmations for recurring travelers.", href: "/corporate" },
+  { index: "03", title: "Corporate movement", body: "Assistant-friendly requests, centralized preferences, and consistent confirmations for recurring travelers.", href: "/corporate" },
 ];
 
 export default function Home() {
@@ -29,12 +29,12 @@ export default function Home() {
           <h1>Washington,<br /><em>handled.</em></h1>
           <p>Discreet chauffeur coordination for the people who manage demanding schedules—and the principals who depend on them.</p>
           <div className="hero-actions">
-            <Link className="button button--brass" href="/book">Book a ride</Link>
+            <Link className="button button--brass" href="/book">Request a ride</Link>
             <Link className="button button--ghost" href="/corporate">Open a corporate account</Link>
           </div>
         </div>
         <div className="hero-proof" aria-label="Service highlights">
-          <span>Fixed, all-inclusive pricing</span><span>DCA · IAD · BWI</span><span>Direct confirmation</span>
+          <span>Advance requests</span><span>DCA · IAD · BWI</span><span>Desk confirmation</span>
         </div>
       </section>
 
@@ -42,13 +42,13 @@ export default function Home() {
         <p className="eyebrow">A better operating model</p>
         <div className="statement-grid">
           <h2>Not another black-car directory. One accountable Washington desk.</h2>
-          <div><p>Global platforms optimize for reach. Altaie combines direct booking with local follow-through: available inventory is shown upfront, the operator is vetted, and the confirmed assignment is actively coordinated.</p><Link className="text-link" href="/standards">See the Altaie standard <span aria-hidden="true">↗</span></Link></div>
+          <div><p>Global platforms optimize for reach. Altaie combines a clear service request with local follow-through: the desk reviews operating coverage, confirms the assignment in writing, and coordinates the movement.</p><Link className="text-link" href="/standards">See the Altaie standard <span aria-hidden="true">↗</span></Link></div>
         </div>
       </section>
 
       <section className="services-section">
         <div className="page-shell">
-          <div className="section-heading"><div><p className="eyebrow">Core assignments</p><h2>Built around the workday.</h2></div><p>From a single airport arrival to a full day of principal movement, each booking begins with live availability and a fixed total.</p></div>
+          <div className="section-heading"><div><p className="eyebrow">Core assignments</p><h2>Built around the workday.</h2></div><p>From a single airport arrival to a full day of principal movement, each request begins with the itinerary and a desk review of real coverage.</p></div>
           <div className="service-cards">
             {services.map((service) => <Link key={service.index} className="service-card" href={service.href}><span>{service.index}</span><h3>{service.title}</h3><p>{service.body}</p><b aria-hidden="true">↗</b></Link>)}
           </div>
@@ -59,7 +59,7 @@ export default function Home() {
         <div className="split-feature__image image-assistant" role="img" aria-label="Executive assistant coordinating a travel itinerary" />
         <div className="split-feature__content">
           <p className="eyebrow">Designed for assistants</p>
-          <h2>The booking is only the beginning.</h2>
+          <h2>The request is only the beginning.</h2>
           <p>The person coordinating the day needs clean confirmations, quick answers, and confidence that changes will be absorbed without drama.</p>
           <NumberedList items={[
             { title: "Review", body: "We check the route, timing, luggage, passenger preferences, and service class before confirmation." },
@@ -81,7 +81,7 @@ export default function Home() {
         <div><strong>15 min</strong><span>Early chauffeur arrival target</span></div>
         <div><strong>30%</strong><span>Target contribution margin</span></div>
         <div><strong>95%+</strong><span>Pilot on-time target</span></div>
-        <div><strong>1 desk</strong><span>For booking through completion</span></div>
+        <div><strong>1 desk</strong><span>For request through completion</span></div>
       </section>
 
       <CTA />

@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useState } from "react";
 import styles from "./AdvancedMobilePortal.module.css";
 
 type Tab = "home" | "rides" | "desk" | "you";
@@ -88,17 +88,6 @@ function RideDetail() {
   </div>;
 }
 
-function Rides() {
-  return <div className={styles.screen}>
-    <div className={styles.pageIntro}><span>ASSIGNMENTS</span><h1>Every movement,<br />one record.</h1><p>Upcoming and completed rides stay with the traveler, booker, and coordination desk.</p></div>
-    <div className={styles.rideList}>{rides.map((ride, index) => <article key={ride.id} className={styles.rideListCard}>
-      <div className={styles.cardTop}><span>{ride.id}</span><span className={`${styles.rideStatus} ${styles[`rideStatus_${ride.tone}`]}`}><StatusDot tone={ride.tone} />{ride.status}</span></div>
-      <h2>{ride.route}</h2><p>{ride.date} · {ride.time}</p>
-      <div className={styles.rideListMeta}><span>{ride.rider}</span><span>{index === 1 ? "Airport arrival" : "Point-to-point"}</span><b>›</b></div>
-    </article>)}</div>
-  </div>;
-}
-
 function Desk() {
   const [message, setMessage] = useState("");
   const [sent, setSent] = useState(false);
@@ -127,9 +116,9 @@ function BookingSheet({ phase, setPhase, close }: { phase: BookingPhase; setPhas
   const [destination, setDestination] = useState("DCA · Terminal 2");
   const [email, setEmail] = useState("maya@asterrowe.example");
   const [phone, setPhone] = useState("202 555 0148");
+  const [date, setDate] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const date = useMemo(() => { const d = new Date(Date.now() + 86400000); return d.toISOString().slice(0,10); }, []);
 
   async function submit(e: FormEvent) {
     e.preventDefault();
@@ -147,7 +136,8 @@ function BookingSheet({ phase, setPhase, close }: { phase: BookingPhase; setPhas
       {phase === "sent" ? <div className={styles.sentState}><span>✓</span><h3>Request received</h3><p>Altaie will confirm coverage and the final total in writing.</p><button type="button" onClick={close}>Done</button></div> : <>
         <div className={styles.servicePills}><span className={styles.serviceActive}>One way</span><span>Hourly</span><span>Airport</span></div>
         <div className={styles.routeInputs}><label><i /><span>Pickup</span><input value={pickup} onChange={(e)=>setPickup(e.target.value)} required /></label><label><i /><span>Destination</span><input value={destination} onChange={(e)=>setDestination(e.target.value)} required /></label></div>
-        <div className={styles.detailChips}><span>Tomorrow · 7:10 AM</span><span>2 riders</span><span>2 bags</span></div>
+        <div className={styles.contactFields}><input type="date" value={date} onChange={(e)=>setDate(e.target.value)} aria-label="Pickup date" required /><input type="time" value="07:10" aria-label="Pickup time" readOnly /></div>
+        <div className={styles.detailChips}><span>{date || "Choose date"} · 7:10 AM</span><span>2 riders</span><span>2 bags</span></div>
         <div className={styles.vehicleChoice}><span>Executive sedan<small>3 seats</small></span><b>$168</b></div>
         {phase === "review" && <div className={styles.contactFields}><input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} aria-label="Email" /><input type="tel" value={phone} onChange={(e)=>setPhone(e.target.value)} aria-label="Phone" /></div>}
         <div className={styles.estimate}><span><b>Pilot estimate</b><small>Coverage + final total confirmed by desk</small></span><strong>$168</strong></div>
