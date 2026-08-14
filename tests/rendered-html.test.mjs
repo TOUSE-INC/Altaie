@@ -239,6 +239,7 @@ test("Fahad Hamid Field Notes are crawlable, attributable, and internally discov
   assert.doesNotMatch(layoutSource, /next\/headers|headers\(\)/);
   assert.match(layoutSource, /metadataBase:\s*new URL\(SITE_URL\)/);
   assert.match(journalCss, /\.field-note__decision[^}]*:focus-visible|\.field-note__decision\s+:focus-visible/);
+  assert.match(journalCss, /\.cta-band :focus-visible\s*\{[^}]*outline-color:\s*var\(--ivory\)/);
   assert.doesNotMatch(readme, /NEXT_PUBLIC_SITE_URL=https:\/\/altaie\.app|attach `altaie\.app`/);
 });
 

@@ -38,6 +38,7 @@
 .journal-author-band h2 { margin-bottom: 1rem; }
 .journal-author-band p:not(.eyebrow) { max-width: 700px; color: #bcbcb8; font-size: 1.08rem; }
 .journal-author-band :focus-visible, .field-note__decision :focus-visible, .field-note__author :focus-visible, .author-method :focus-visible { outline-color: var(--ivory); }
+.cta-band :focus-visible { outline-color: var(--ivory); }
 .journal-breadcrumb { padding-top: 2rem; }
 .journal-breadcrumb ol { display: flex; flex-wrap: wrap; gap: .65rem; margin: 0; padding: 0 0 1.2rem; border-bottom: 1px solid var(--line); list-style: none; color: #62625f; font-size: .67rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
 .journal-breadcrumb li + li::before { content: "/"; margin-right: .65rem; color: #9d9d98; }
