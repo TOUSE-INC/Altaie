@@ -1,5 +1,8 @@
 import Link from "next/link";
+import Image from "next/image";
 import { CTA, NumberedList } from "./components/Content";
+import { articles } from "./journal/articles";
+import { absoluteUrl, organizationId, SITE_URL } from "@/lib/site";
 
 const services = [
   { index: "01", title: "Airport arrivals", body: "Flight-aware coordination for DCA, IAD, and BWI, including a documented 60-minute arrival grace period.", href: "/airports" },
@@ -11,8 +14,11 @@ export default function Home() {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
+    "@id": organizationId,
     name: "Altaie",
-    url: "https://altaie.app",
+    url: SITE_URL,
+    logo: absoluteUrl("/brand/altaie-mark.svg"),
+    image: absoluteUrl("/images/chauffeurs/fahad-hamid-arrival.webp"),
     areaServed: ["Washington, DC", "DCA", "IAD", "BWI"],
     description: "A Washington, DC executive mobility desk for advance-reserved chauffeur coordination.",
     serviceType: ["Airport transfer", "Hourly chauffeur service", "Corporate transportation", "Event transportation"],
@@ -82,6 +88,29 @@ export default function Home() {
         <div><strong>30%</strong><span>Target contribution margin</span></div>
         <div><strong>95%+</strong><span>Pilot on-time target</span></div>
         <div><strong>1 desk</strong><span>For request through completion</span></div>
+      </section>
+
+      <section className="home-notes">
+        <div className="page-shell">
+          <div className="section-heading">
+            <div><p className="eyebrow">Field Notes by Fahad Hamid</p><h2>Know the movement before the door closes.</h2></div>
+            <div><p>Specific operating guidance for airport decisions, private aviation handoffs, and multi-stop Washington days.</p><Link className="text-link" href="/journal">Read all Field Notes <span aria-hidden="true">↗</span></Link></div>
+          </div>
+          <div className="home-notes__grid">
+            <Link className="home-notes__image" href={`/journal/${articles[0].slug}`} aria-label={`Read ${articles[0].title}`}>
+              <Image src={articles[0].image} alt={articles[0].imageAlt} width={articles[0].imageWidth} height={articles[0].imageHeight} sizes="(max-width: 760px) calc(100vw - 36px), 44vw" />
+            </Link>
+            <div className="home-notes__list">
+              {articles.map((article, index) => (
+                <article key={article.slug}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <div><p className="eyebrow">{article.category}</p><h3><Link href={`/journal/${article.slug}`}>{article.title}</Link></h3><p>{article.description}</p></div>
+                  <Link aria-label={`Read ${article.title}`} href={`/journal/${article.slug}`}>↗</Link>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       <CTA />

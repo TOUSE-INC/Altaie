@@ -109,6 +109,18 @@ button:disabled { cursor: wait; opacity: 0.66; }
 .metrics div:last-child { border-right: 1px solid var(--line); }
 .metrics strong { font-family: var(--font-serif), Georgia, serif; font-size: 3rem; font-weight: 400; }
 .metrics span { color: #6a6a68; font-size: .78rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; }
+.home-notes { padding: 8rem 0; background: var(--ivory); }
+.home-notes .section-heading > div:last-child > p { color: #5a5a58; }
+.home-notes__grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: 5rem; align-items: start; }
+.home-notes__image { position: sticky; top: 110px; display: block; overflow: hidden; background: #dededb; }
+.home-notes__image img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; filter: grayscale(1); transition: transform .35s ease; }
+.home-notes__image:hover img { transform: scale(1.015); }
+.home-notes__list { border-top: 1px solid var(--line); }
+.home-notes__list article { position: relative; display: grid; grid-template-columns: 42px 1fr 28px; gap: 1.3rem; padding: 1.8rem 0; border-bottom: 1px solid var(--line); }
+.home-notes__list article > span { color: #7a7a76; font-size: .7rem; font-weight: 800; }
+.home-notes__list h3 { margin: 0 0 .55rem; font-family: var(--font-serif), Georgia, serif; font-size: clamp(1.65rem, 2.4vw, 2.4rem); font-weight: 400; }
+.home-notes__list p:not(.eyebrow) { margin: 0; color: #62625f; font-size: .86rem; }
+.home-notes__list article > a { font-size: 1.15rem; }
 .cta-band { width: min(1440px, calc(100% - 32px)); margin: 0 auto 16px; display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 4rem; padding: 6rem max(32px, calc((100vw - 1280px) / 2)); background: var(--ink); color: white; }
 .cta-band h2 { max-width: 850px; margin-bottom: 1rem; }
 .cta-band p:not(.eyebrow) { max-width: 660px; margin: 0; }
@@ -238,6 +250,11 @@ button:disabled { cursor: wait; opacity: 0.66; }
   .hero-proof span + span { padding-left: 0; border-left: 0; }
   .statement-section, .services-section, .split-feature, .form-section { padding: 5rem 0; }
   .statement-grid, .section-heading, .split-feature, .page-hero__inner, .two-column-section, .arrival-process, .partner-criteria, .compliance-band .page-shell, .form-page > .page-shell { grid-template-columns: 1fr; gap: 2.5rem; }
+  .home-notes { padding: 5rem 0; }
+  .home-notes__grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .home-notes__image { position: static; }
+  .home-notes__list article { grid-template-columns: 32px 1fr; gap: 1rem; }
+  .home-notes__list article > a { display: none; }
   .statement-grid h2 { font-size: 3.2rem; }
   .service-cards, .use-case-grid, .airport-cards, .standard-grid, .metrics { grid-template-columns: 1fr; }
   .service-card { min-height: 290px; border-right: 0; border-bottom: 1px solid var(--line); }
