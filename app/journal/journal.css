@@ -37,6 +37,7 @@
 .journal-author-band img { aspect-ratio: 1; object-fit: cover; filter: grayscale(1); }
 .journal-author-band h2 { margin-bottom: 1rem; }
 .journal-author-band p:not(.eyebrow) { max-width: 700px; color: #bcbcb8; font-size: 1.08rem; }
+.journal-author-band :focus-visible, .field-note__decision :focus-visible, .field-note__author :focus-visible, .author-method :focus-visible { outline-color: var(--ivory); }
 .journal-breadcrumb { padding-top: 2rem; }
 .journal-breadcrumb ol { display: flex; flex-wrap: wrap; gap: .65rem; margin: 0; padding: 0 0 1.2rem; border-bottom: 1px solid var(--line); list-style: none; color: #62625f; font-size: .67rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; }
 .journal-breadcrumb li + li::before { content: "/"; margin-right: .65rem; color: #9d9d98; }
@@ -73,6 +74,7 @@
 .field-note__section > p, .field-note__sources > p { color: #4f4f4d; font-size: 1.05rem; line-height: 1.82; }
 .field-note__section > p:first-of-type::first-letter { float: left; margin: .06em .1em 0 0; font-family: var(--font-serif), Georgia, serif; font-size: 4.1rem; line-height: .75; }
 .field-note__table-wrap { overflow-x: auto; margin: 2.5rem 0; border: 1px solid var(--line); }
+.field-note__table-wrap:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
 .field-note__table-wrap table { width: 100%; min-width: 720px; border-collapse: collapse; background: var(--paper); font-size: .84rem; }
 .field-note__table-wrap caption { padding: 1rem 1.2rem; background: var(--ink); color: var(--ivory); font-family: var(--font-serif), Georgia, serif; font-size: 1.35rem; text-align: left; }
 .field-note__table-wrap th, .field-note__table-wrap td { padding: 1rem 1.1rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }

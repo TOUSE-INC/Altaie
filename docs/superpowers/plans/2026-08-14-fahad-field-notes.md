@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- Production canonical origin is `https://www.altaiedc.com`, with `NEXT_PUBLIC_SITE_URL` accepted as an override.
+- Production canonical origin is fixed at `https://www.altaiedc.com` so deployment environment drift cannot rewrite public identity.
 - The visible and structured-data author name is exactly `Fahad Hamid`.
 - Do not invent credentials, years of experience, awards, licenses, education, or social profiles.
 - Do not add `FAQPage`, `llms.txt`, thin location pages, or keyword-variant pages.
@@ -73,9 +73,7 @@ git commit -m "test: define Fahad Field Notes contract"
 Implement:
 
 ```ts
-const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "");
-
-export const SITE_URL = configuredSiteUrl || "https://www.altaiedc.com";
+export const SITE_URL = "https://www.altaiedc.com";
 export const organizationId = `${SITE_URL}/#organization`;
 export const authorUrl = `${SITE_URL}/journal/fahad-hamid`;
 ```
@@ -260,4 +258,3 @@ Confirm the deployment built from the merge commit reaches `READY`, the custom d
 - [ ] **Step 5: Verify production discovery**
 
 Fetch the public journal, one article, author profile, and sitemap; confirm 200 status, canonical custom-domain URLs, JSON-LD types, and visible article links.
-

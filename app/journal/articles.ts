@@ -35,6 +35,7 @@ export type ArticleRecord = {
   datePublished: string;
   dateModified: string;
   displayDate: string;
+  displayModifiedDate: string;
   readingTime: string;
   image: string;
   imageWidth: number;
@@ -47,7 +48,7 @@ export type ArticleRecord = {
   relatedSlugs: string[];
 };
 
-const launchDate = "2026-08-14T09:00:00-04:00";
+const launchDate = "2026-08-14T02:00:00-04:00";
 
 export const articles: ArticleRecord[] = [
   {
@@ -60,11 +61,12 @@ export const articles: ArticleRecord[] = [
     datePublished: launchDate,
     dateModified: launchDate,
     displayDate: "August 14, 2026",
+    displayModifiedDate: "August 14, 2026",
     readingTime: "8 min read",
     image: "/images/chauffeurs/fahad-hamid-airport.webp",
     imageWidth: 1536,
     imageHeight: 1024,
-    imageAlt: "Fahad Hamid in a tailored black suit beside an executive vehicle at a Washington airport",
+    imageAlt: "Fahad Hamid in a tailored black suit beside a black executive vehicle",
     takeaways: [
       "Anchor the decision to the first immovable appointment and the day’s final geography.",
       "Model gate-to-curb and curb-to-door as separate stages; a flight arrival time is not a vehicle departure time.",
@@ -154,6 +156,7 @@ export const articles: ArticleRecord[] = [
       { label: "Reagan National — Meeting Passengers", href: "https://www.flyreagan.com/travel-information/meeting-passengers" },
       { label: "Dulles International — Meeting Passengers", href: "https://www.flydulles.com/travel-information/meeting-passengers" },
       { label: "BWI Marshall — Passenger Pick-Up and Drop-Off FAQ", href: "https://bwiairport.com/frequently-asked-questions/" },
+      { label: "BWI Marshall — App-Based Ride Services", href: "https://bwiairport.com/to-from-bwi/transportation/app-based-ride-services/" },
       { label: "Altaie — Washington Airport Service", href: "/airports" },
     ],
     serviceLinks: [
@@ -172,11 +175,12 @@ export const articles: ArticleRecord[] = [
     datePublished: launchDate,
     dateModified: launchDate,
     displayDate: "August 14, 2026",
+    displayModifiedDate: "August 14, 2026",
     readingTime: "9 min read",
     image: "/images/chauffeurs/fahad-hamid-fleet.webp",
     imageWidth: 1536,
     imageHeight: 1024,
-    imageAlt: "Fahad Hamid standing with Altaie executive vehicles prepared for a private aviation arrival",
+    imageAlt: "Fahad Hamid in a tailored black suit standing between a black sedan and SUV",
     takeaways: [
       "Treat wheels down and passenger ready as two different events.",
       "Confirm the pickup access boundary directly with the handler or facility; never assume vehicle-side access.",
@@ -206,7 +210,8 @@ export const articles: ArticleRecord[] = [
         id: "access-boundary",
         title: "Confirm the access boundary with the handler",
         paragraphs: [
-          "Private-aviation facilities do not share one universal vehicle-access rule. Airport controls, facility policy, security posture, aircraft position, and the operating provider can change where the handoff occurs. A vehicle may be directed to a public entrance, controlled apron position, or another assigned point. Only the current handler or authorized facility contact can confirm that boundary.",
+          "Published DCA and IAD transportation pages show that even public-terminal pre-arranged service uses airport-specific pickup procedures; neither page establishes FBO access. Fahad’s operating framework therefore treats private-aviation access as an unresolved field that must be confirmed directly with the current handler or authorized facility contact.",
+          "Private-aviation facilities do not share one universal vehicle-access rule. Airport controls, facility policy, security posture, aircraft position, and the operating provider can change where the handoff occurs. A vehicle may be directed to a public entrance, controlled apron position, or another assigned point.",
           "Write the confirmed pickup point into the movement brief along with the person who provided it and the time of confirmation. If access changes, the desk updates the chauffeur and passenger-side contact together so neither side is working from an obsolete plan.",
         ],
         note: {
@@ -287,6 +292,7 @@ export const articles: ArticleRecord[] = [
     sources: [
       { label: "Reagan National — Limousine and Sedan Services", href: "https://www.flyreagan.com/parking-transportation" },
       { label: "Dulles International — Pre-Arranged Ground Transportation", href: "https://www.flydulles.com/parking-transportation" },
+      { label: "Fahad Hamid — Field Notes editorial method", href: "/journal/fahad-hamid" },
       { label: "Altaie — Service Standard", href: "/standards" },
       { label: "Altaie — Corporate Movement", href: "/corporate" },
     ],
@@ -306,11 +312,12 @@ export const articles: ArticleRecord[] = [
     datePublished: launchDate,
     dateModified: launchDate,
     displayDate: "August 14, 2026",
+    displayModifiedDate: "August 14, 2026",
     readingTime: "8 min read",
     image: "/images/chauffeurs/fahad-hamid-arrival.webp",
     imageWidth: 1672,
     imageHeight: 941,
-    imageAlt: "Fahad Hamid opening an executive vehicle for a multi-stop Washington assignment",
+    imageAlt: "Fahad Hamid in a tailored black suit holding open the rear door of a black sedan",
     takeaways: [
       "Count schedule decision points and fragile handoffs, not just addresses.",
       "Separate hard doors from soft departures so the chauffeur knows what can move and what cannot.",
@@ -434,4 +441,3 @@ export const articlePaths = articles.map((article) => `/journal/${article.slug}`
 export function getArticle(slug: string) {
   return articles.find((article) => article.slug === slug);
 }
-

@@ -3,7 +3,7 @@ import { articles } from "./journal/articles";
 import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const launchModified = "2026-08-14T09:00:00-04:00";
+  const launchModified = "2026-08-14T02:00:00-04:00";
   const staticRoutes = ["", "/services", "/corporate", "/airports", "/standards", "/book", "/contact", "/partner-network", "/privacy", "/terms"];
   const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((route) => ({
     url: `${SITE_URL}${route}`,

@@ -122,7 +122,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       />
       <article className="field-note">
         <nav className="journal-breadcrumb journal-shell" aria-label="Breadcrumb">
-          <ol><li><Link href="/">Home</Link></li><li><Link href="/journal">Field Notes</Link></li><li aria-current="page">{article.category}</li></ol>
+          <ol><li><Link href="/">Home</Link></li><li><Link href="/journal">Field Notes</Link></li><li aria-current="page">{article.title}</li></ol>
         </nav>
 
         <header className="field-note__header journal-shell">
@@ -132,6 +132,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           <div className="field-note__meta">
             <span>By <Link href={authorPath}>Fahad Hamid</Link></span>
             <span>Published <time dateTime={article.datePublished}>{article.displayDate}</time></span>
+            <span>Updated <time dateTime={article.dateModified}>{article.displayModifiedDate}</time></span>
             <span>{article.readingTime}</span>
           </div>
         </header>
@@ -145,7 +146,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
             sizes="(max-width: 760px) calc(100vw - 36px), calc(100vw - 64px)"
             priority
           />
-          <figcaption>{article.imageAlt}. Altaie campaign image.</figcaption>
+          <figcaption>{article.imageAlt}. Illustrative Altaie campaign image; not a live assignment.</figcaption>
         </figure>
 
         <section className="field-note__decision journal-shell" aria-labelledby="decision-in-brief">
@@ -176,7 +177,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
                 {section.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
                 {section.bullets && <ul>{section.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}</ul>}
                 {section.table && (
-                  <div className="field-note__table-wrap">
+                  <div className="field-note__table-wrap" role="region" tabIndex={0} aria-label={section.table.caption}>
                     <table>
                       <caption>{section.table.caption}</caption>
                       <thead><tr>{section.table.headers.map((header) => <th scope="col" key={header}>{header}</th>)}</tr></thead>
@@ -228,4 +229,3 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     </>
   );
 }
-

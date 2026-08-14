@@ -113,7 +113,7 @@ Structured data must describe visible page content exactly. It is eligibility an
 
 ## Canonical domain and dates
 
-The production canonical origin is `https://www.altaiedc.com`. A shared site-configuration module owns this value with `NEXT_PUBLIC_SITE_URL` as an optional deployment override. Launch publication timestamps use `2026-08-14T09:00:00-04:00`; modified timestamps initially match publication.
+The production canonical origin is fixed at `https://www.altaiedc.com` in the shared site-configuration module so deployment environment drift cannot rewrite public identity. Launch publication timestamps use `2026-08-14T02:00:00-04:00`; modified timestamps initially match publication.
 
 ## Editorial method
 
@@ -143,4 +143,3 @@ After automated checks, verify the journal hub, one article, the author page, si
 - Google Search Central, “Breadcrumb structured data” — https://developers.google.com/search/docs/appearance/structured-data/breadcrumb
 - Google Search Central, “General structured data guidelines” — https://developers.google.com/search/docs/appearance/structured-data/sd-policies
 - Schema.org 30.0 — https://schema.org/version/latest
-

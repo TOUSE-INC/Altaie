@@ -41,7 +41,7 @@ Basic authentication is a private-beta release gate. Replace it with role-based 
 
 ## Production configuration
 
-- `NEXT_PUBLIC_SITE_URL=https://altaie.app`
+- The public canonical origin is fixed in code at `https://www.altaiedc.com` so deployment environment drift cannot rewrite canonicals, schema, sitemap, or robots metadata.
 - `DATABASE_URL` or `POSTGRES_URL` — injected by the Neon integration in Vercel
 - `NEXT_PUBLIC_MOOVS_PORTAL_URL` — Moovs widget/iframe URL
 - `RESEND_API_KEY` — optional until operational email is connected
@@ -60,4 +60,4 @@ Technical promotion requires a green GitHub quality check, a ready Vercel deploy
 3. Configure the production environment variables listed above.
 4. Run `npm run db:migrate` once against the production database.
 5. Deploy a preview candidate, verify the request flow and protected routes, and inspect runtime errors.
-6. Promote only after the technical checks and business launch approvals both pass; then attach `altaie.app`.
+6. Promote only after the technical checks and business launch approvals both pass; then verify `www.altaiedc.com`.

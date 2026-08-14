@@ -154,6 +154,11 @@ test("Fahad Hamid Field Notes are crawlable, attributable, and internally discov
     "/journal/fbo-to-boardroom-chauffeur-brief",
     "/journal/hourly-chauffeur-washington-board-day",
   ];
+  const articleTitles = [
+    "DCA, IAD, or BWI? Choose the Washington airport by ground risk",
+    "FBO to boardroom: the chauffeur brief that prevents a missed handoff",
+    "The six-stop Washington day: when hourly service beats separate rides",
+  ];
   const [homeResponse, hubResponse, authorResponse, sitemapResponse, robotsResponse, ...articleResponses] = await Promise.all([
     fetch(server.baseUrl),
     fetch(`${server.baseUrl}/journal`),
@@ -200,6 +205,14 @@ test("Fahad Hamid Field Notes are crawlable, attributable, and internally discov
     assert.equal(posting?.author?.url, "https://www.altaiedc.com/journal/fahad-hamid");
     assert.equal(posting?.publisher?.name, "Altaie");
     assert.match(posting?.datePublished ?? "", /^2026-08-14T\d{2}:\d{2}:\d{2}-04:00$/);
+    assert.ok(Date.parse(posting?.datePublished ?? "") <= Date.now(), "publication timestamps cannot be in the future");
+    assert.ok(html.includes(`<li aria-current="page">${articleTitles[index]}</li>`));
+    assert.match(html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " "), /Updated August 14, 2026/);
+    assert.match(html, /class="field-note__table-wrap"[^>]*role="region"[^>]*tabindex="0"/);
+    assert.match(html, /Illustrative Altaie campaign image/);
+    assert.doesNotMatch(html, /at a Washington airport|prepared for a private aviation arrival|for a multi-stop Washington assignment/);
+    if (index === 0) assert.match(html, /App-Based Ride Services/);
+    if (index === 1) assert.match(html, /Fahad(?:&apos;|’)s operating framework/);
     assert.doesNotMatch(html, /FAQPage/);
   }
 
@@ -214,6 +227,19 @@ test("Fahad Hamid Field Notes are crawlable, attributable, and internally discov
 
   assert.equal(robotsResponse.status, 200);
   assert.match(await robotsResponse.text(), /Sitemap: https:\/\/www\.altaiedc\.com\/sitemap\.xml/);
+
+  const [siteSource, layoutSource, journalCss, readme] = await Promise.all([
+    readFile(new URL("../lib/site.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/journal/journal.css", import.meta.url), "utf8"),
+    readFile(new URL("../README.md", import.meta.url), "utf8"),
+  ]);
+  assert.doesNotMatch(siteSource, /NEXT_PUBLIC_SITE_URL|altaie\.app/);
+  assert.match(siteSource, /https:\/\/www\.altaiedc\.com/);
+  assert.doesNotMatch(layoutSource, /next\/headers|headers\(\)/);
+  assert.match(layoutSource, /metadataBase:\s*new URL\(SITE_URL\)/);
+  assert.match(journalCss, /\.field-note__decision[^}]*:focus-visible|\.field-note__decision\s+:focus-visible/);
+  assert.doesNotMatch(readme, /NEXT_PUBLIC_SITE_URL=https:\/\/altaie\.app|attach `altaie\.app`/);
 });
 
 test("dashboard routes challenge anonymous visitors and accept configured credentials", async () => {

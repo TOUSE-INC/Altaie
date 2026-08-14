@@ -36,8 +36,8 @@ export default function FahadHamidProfilePage() {
         "@type": "ProfilePage",
         "@id": `${authorUrl}#profile`,
         url: authorUrl,
-        dateCreated: "2026-08-14T09:00:00-04:00",
-        dateModified: "2026-08-14T09:00:00-04:00",
+        dateCreated: "2026-08-14T02:00:00-04:00",
+        dateModified: "2026-08-14T02:00:00-04:00",
         mainEntity: {
           "@type": "Person",
           "@id": `${authorUrl}#person`,
