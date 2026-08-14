@@ -17,16 +17,16 @@ const navigation: Array<{ id: View; label: string; cue: string }> = [
 ];
 
 const rides = [
-  { id: "AT-1054", time: "07:10", route: "The Jefferson → DCA", rider: "Jordan Lee", vehicle: "Sedan", partner: "Monument", driver: "Marcus T.", driverImage: "/images/owner/icons/driver-marcus.jpg", status: "En route", tone: "live", type: "airport" },
+  { id: "AT-1054", time: "07:10", route: "The Jefferson → DCA", rider: "Jordan Lee", vehicle: "Sedan", partner: "Monument", driver: "Fahad Hamid", driverImage: "/images/chauffeurs/fahad-hamid-portrait.webp", status: "En route", tone: "live", type: "airport" },
   { id: "AT-1055", time: "08:30", route: "IAD → The Willard", rider: "Elena Park", vehicle: "SUV", partner: "Potomac", driver: "Lena R.", driverImage: "/images/owner/icons/driver-lena.jpg", status: "Flight delayed", tone: "watch", type: "airport" },
   { id: "AT-1056", time: "10:00", route: "K Street → Capitol Hill", rider: "Daniel Wu", vehicle: "Sedan", partner: "District", driver: "Omar K.", driverImage: "/images/owner/icons/driver-omar.jpg", status: "Confirmed", tone: "ready", type: "city" },
-  { id: "AT-1057", time: "14:15", route: "Embassy Row · 4 stops", rider: "Amira Hassan", vehicle: "SUV", partner: "Monument", driver: "Marcus T.", driverImage: "/images/owner/icons/driver-marcus.jpg", status: "Briefed", tone: "ready", type: "city" },
+  { id: "AT-1057", time: "14:15", route: "Embassy Row · 4 stops", rider: "Amira Hassan", vehicle: "SUV", partner: "Monument", driver: "Fahad Hamid", driverImage: "/images/chauffeurs/fahad-hamid-portrait.webp", status: "Briefed", tone: "ready", type: "city" },
   { id: "AT-1058", time: "18:10", route: "Georgetown → DCA", rider: "Priya Shah", vehicle: "SUV", partner: "Unassigned", driver: "Unassigned", driverImage: "", status: "Needs coverage", tone: "alert", type: "airport" },
   { id: "AT-1059", time: "20:40", route: "BWI → Dupont Circle", rider: "Marcus Bell", vehicle: "Sedan", partner: "Capital", driver: "Omar K.", driverImage: "/images/owner/icons/driver-omar.jpg", status: "Confirmed", tone: "ready", type: "airport" },
 ];
 
 const driverRoster = [
-  { name: "Marcus T.", image: "/images/owner/icons/driver-marcus.jpg", status: "En route", assignment: "AT-1054" },
+  { name: "Fahad Hamid", image: "/images/chauffeurs/fahad-hamid-portrait.webp", status: "En route", assignment: "AT-1054" },
   { name: "Lena R.", image: "/images/owner/icons/driver-lena.jpg", status: "Holding", assignment: "AT-1055" },
   { name: "Omar K.", image: "/images/owner/icons/driver-omar.jpg", status: "Briefed", assignment: "AT-1056" },
 ];
@@ -79,7 +79,7 @@ function Overview({ navigate }: { navigate: (view: View) => void }) {
         <div className="owner-readiness"><span>Network readiness</span><strong>96.8%</strong><p>One exception needs a decision.</p></div>
       </div>
       <figure className="owner-hero-visual">
-        <Image src="/images/owner/chauffeur-escalade.jpg" width={1536} height={1024} priority alt="Altaie chauffeur opening a black executive SUV for a corporate traveler beside limestone columns" />
+        <Image src="/images/chauffeurs/fahad-hamid-airport.webp" width={1536} height={1024} priority alt="Fahad Hamid preparing a black executive SUV for an airport arrival" />
         <figcaption><span>Live service</span><strong>Executive SUV · DC core</strong><small>Chauffeur verified · vehicle inspected</small></figcaption>
       </figure>
     </section>
@@ -168,7 +168,7 @@ function Network() {
     <section className="owner-fleet-showcase">
       <div className="owner-fleet-heading"><p className="owner-kicker owner-kicker--light">Vehicle classes</p><h2>Black fleet.<br />Verified standards.</h2><p>Specific models remain subject to partner availability and written confirmation.</p></div>
       <figure>
-        <Image src="/images/owner/chauffeur-escalade.jpg" width={1536} height={1024} alt="Professional chauffeur and corporate traveler beside a black Escalade-class executive SUV" />
+        <Image src="/images/chauffeurs/fahad-hamid-fleet.webp" width={1536} height={1024} alt="Fahad Hamid beside Altaie illustrative black sedan and SUV service classes" />
         <figcaption><div><span>Core SUV</span><strong>Cadillac Escalade ESV</strong></div><dl><div><dt>Network</dt><dd>8 vetted</dd></div><div><dt>Use</dt><dd>Airport · events</dd></div></dl></figcaption>
       </figure>
       <figure>

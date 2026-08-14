@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import type { ReactNode } from "react";
+import Image from "next/image";
 
 type Screen = "home" | "request" | "ride" | "trips" | "desk" | "account";
 type RequestPhase = "details" | "review" | "sent";
@@ -71,6 +72,7 @@ function HomeScreen({ navigate }: { navigate: (screen: Screen) => void }) {
             <div><dt>Service</dt><dd>Airport transfer</dd></div>
             <div><dt>Vehicle</dt><dd>Executive sedan</dd></div>
             <div><dt>Flight</dt><dd>UA 1842</dd></div>
+            <div><dt>Chauffeur</dt><dd>Fahad Hamid</dd></div>
           </dl>
           <div className="portal-actions"><button className="portal-button portal-button--white" onClick={() => navigate("ride")}>View ride</button><button className="portal-button portal-button--ghost" onClick={() => navigate("desk")}>Message desk</button></div>
         </section>
@@ -167,8 +169,8 @@ function RideScreen({ navigate }: { navigate: (screen: Screen) => void }) {
         </section>
         <aside className="portal-assignment-card">
           <p className="portal-kicker">Assignment</p>
-          <div className="portal-avatar">MT</div>
-          <h2>Marcus T.</h2><p>Chauffeur profile preview</p>
+          <Image className="portal-avatar portal-avatar--driver" src="/images/chauffeurs/fahad-hamid-portrait.webp" width={116} height={116} alt="Fahad Hamid chauffeur portrait" />
+          <h2>Fahad Hamid</h2><p>Chauffeur profile preview</p>
           <div className="portal-vehicle-swatch" aria-hidden="true" />
           <dl><div><dt>Vehicle</dt><dd>Black executive sedan</dd></div><div><dt>Identifier</dt><dd>4821</dd></div><div><dt>Meet note</dt><dd>Main entrance, curbside</dd></div></dl>
           <button className="portal-button portal-button--line" onClick={() => navigate("desk")}>Contact coordination desk</button>

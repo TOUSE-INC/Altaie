@@ -61,7 +61,7 @@ button:disabled { cursor: wait; opacity: 0.66; }
 .footer-column a:hover { color: white; }
 .footer-legal { width: min(1280px, calc(100% - 64px)); margin-inline: auto; display: flex; justify-content: space-between; gap: 1rem; padding: 1.2rem 0 2rem; border-top: 1px solid var(--white-line); color: #888884; font-size: .7rem; letter-spacing: .04em; }
 .home-hero { position: relative; min-height: min(820px, calc(100vh - 78px)); min-height: min(820px, calc(100svh - 78px)); display: flex; align-items: flex-end; overflow: hidden; background: var(--ink); color: white; }
-.home-hero__image { position: absolute; inset: 0; background: url('/brand/principal-movement.png') center 40%/cover no-repeat; filter: grayscale(1) contrast(1.06); transform: scale(1.01); }
+.home-hero__image { position: absolute; inset: 0; background: url('/images/chauffeurs/fahad-hamid-arrival.webp') center 40%/cover no-repeat; filter: grayscale(1) contrast(1.06); transform: scale(1.01); }
 .home-hero__shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,.94) 0%, rgba(0,0,0,.68) 42%, rgba(0,0,0,.16) 72%), linear-gradient(0deg, rgba(0,0,0,.76) 0%, transparent 40%); }
 .home-hero__content { position: relative; z-index: 2; width: min(1280px, calc(100% - 64px)); margin: 0 auto; padding: 8rem 0 9.5rem; }
 .home-hero__content h1 { max-width: 850px; margin-bottom: 2rem; color: var(--ivory); font-size: clamp(5rem, 10.5vw, 10rem); }
