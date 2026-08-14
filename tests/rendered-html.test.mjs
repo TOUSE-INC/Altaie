@@ -108,8 +108,15 @@ test("the public launch surface renders the truthful private-beta journey", asyn
 
   assert.equal(bookResponse.status, 200);
   const bookingHtml = await bookResponse.text();
-  assert.match(bookingHtml, /Altaie private beta/);
-  assert.match(bookingHtml, /Service request/);
+  const bookingText = bookingHtml.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ");
+  assert.match(bookingHtml, /Private beta/i);
+  assert.match(bookingHtml, /Demo itinerary/i);
+  assert.match(bookingText, /Your chauffeur is assigned\./i);
+  assert.match(bookingHtml, /View live trip/i);
+  assert.match(bookingHtml, /Simulated live data/i);
+  assert.match(bookingHtml, /Illustrative route map of Washington, DC/i);
+  assert.match(bookingHtml, /Request a ride/i);
+  assert.doesNotMatch(bookingHtml, /real-time dispatch|live vehicle location/i);
   assert.doesNotMatch(bookingHtml, /fixed-price Altaie|Live DC inventory|You(?:&apos;|')re booked/);
 
   assert.equal(servicesResponse.status, 200);
