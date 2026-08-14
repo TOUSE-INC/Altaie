@@ -83,6 +83,19 @@ async function startProductionServer({ withDashboardCredentials = true } = {}) {
 
 let server;
 
+function parseJsonLd(html) {
+  return [...html.matchAll(/<script[^>]*type="application\/ld\+json"[^>]*>([\s\S]*?)<\/script>/g)]
+    .map((match) => JSON.parse(match[1]));
+}
+
+function flattenJsonLdTypes(documents) {
+  return documents.flatMap((document) => {
+    if (Array.isArray(document)) return document;
+    if (Array.isArray(document?.["@graph"])) return document["@graph"];
+    return [document];
+  });
+}
+
 before(async () => {
   await access(new URL(".next/BUILD_ID", root));
   server = await startProductionServer();
@@ -133,6 +146,101 @@ test("the public launch surface renders the truthful private-beta journey", asyn
   const termsHtml = await termsResponse.text();
   assert.match(termsHtml, /Submitting a request does not confirm a ride/i);
   assert.doesNotMatch(termsHtml, /prototype demonstrates confirmation/i);
+});
+
+test("Fahad Hamid Field Notes are crawlable, attributable, and internally discoverable", async () => {
+  const articlePaths = [
+    "/journal/dca-iad-bwi-ground-risk",
+    "/journal/fbo-to-boardroom-chauffeur-brief",
+    "/journal/hourly-chauffeur-washington-board-day",
+  ];
+  const articleTitles = [
+    "DCA, IAD, or BWI? Choose the Washington airport by ground risk",
+    "FBO to boardroom: the chauffeur brief that prevents a missed handoff",
+    "The six-stop Washington day: when hourly service beats separate rides",
+  ];
+  const [homeResponse, hubResponse, authorResponse, sitemapResponse, robotsResponse, ...articleResponses] = await Promise.all([
+    fetch(server.baseUrl),
+    fetch(`${server.baseUrl}/journal`),
+    fetch(`${server.baseUrl}/journal/fahad-hamid`),
+    fetch(`${server.baseUrl}/sitemap.xml`),
+    fetch(`${server.baseUrl}/robots.txt`),
+    ...articlePaths.map((path) => fetch(`${server.baseUrl}${path}`)),
+  ]);
+
+  assert.equal(homeResponse.status, 200);
+  assert.match(await homeResponse.text(), /href="\/journal"/);
+
+  assert.equal(hubResponse.status, 200);
+  const hubHtml = await hubResponse.text();
+  assert.match(hubHtml, /Field Notes/);
+  assert.match(hubHtml, /href="\/journal\/fahad-hamid"/);
+  for (const path of articlePaths) assert.match(hubHtml, new RegExp(`href="${path}"`));
+
+  assert.equal(authorResponse.status, 200);
+  const authorHtml = await authorResponse.text();
+  const authorTypes = flattenJsonLdTypes(parseJsonLd(authorHtml)).map((entry) => entry?.["@type"]);
+  assert.match(authorHtml, /Fahad Hamid/);
+  assert.match(authorHtml, /AI-assisted research and copyediting/i);
+  assert.ok(authorTypes.includes("ProfilePage"));
+  for (const path of articlePaths) assert.match(authorHtml, new RegExp(`href="${path}"`));
+
+  for (const [index, response] of articleResponses.entries()) {
+    assert.equal(response.status, 200, articlePaths[index]);
+    const html = await response.text();
+    const jsonLd = flattenJsonLdTypes(parseJsonLd(html));
+    const types = jsonLd.map((entry) => entry?.["@type"]);
+    const posting = jsonLd.find((entry) => entry?.["@type"] === "BlogPosting");
+
+    assert.match(html, /href="\/journal\/fahad-hamid"[^>]*>Fahad Hamid<\/a>/);
+    assert.match(html, /Sources and current guidance/);
+    assert.match(html, /href="\/book"/);
+    assert.match(
+      html,
+      new RegExp(`<link rel="canonical" href="https://www\\.altaiedc\\.com${articlePaths[index]}"`),
+    );
+    assert.ok(types.includes("BlogPosting"));
+    assert.ok(types.includes("BreadcrumbList"));
+    assert.equal(posting?.author?.name, "Fahad Hamid");
+    assert.equal(posting?.author?.url, "https://www.altaiedc.com/journal/fahad-hamid");
+    assert.equal(posting?.publisher?.name, "Altaie");
+    assert.match(posting?.datePublished ?? "", /^2026-08-14T\d{2}:\d{2}:\d{2}-04:00$/);
+    assert.ok(Date.parse(posting?.datePublished ?? "") <= Date.now(), "publication timestamps cannot be in the future");
+    assert.ok(html.includes(`<li aria-current="page">${articleTitles[index]}</li>`));
+    assert.match(html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " "), /Updated August 14, 2026/);
+    assert.match(html, /class="field-note__table-wrap"[^>]*role="region"[^>]*tabindex="0"/);
+    assert.match(html, /Illustrative Altaie campaign image/);
+    assert.doesNotMatch(html, /at a Washington airport|prepared for a private aviation arrival|for a multi-stop Washington assignment/);
+    if (index === 0) assert.match(html, /App-Based Ride Services/);
+    if (index === 1) assert.match(html, /Fahad(?:&apos;|’)s operating framework/);
+    assert.doesNotMatch(html, /FAQPage/);
+  }
+
+  assert.equal(sitemapResponse.status, 200);
+  const sitemapXml = await sitemapResponse.text();
+  assert.match(sitemapXml, /https:\/\/www\.altaiedc\.com\/journal<\/loc>/);
+  assert.match(sitemapXml, /https:\/\/www\.altaiedc\.com\/journal\/fahad-hamid<\/loc>/);
+  for (const path of articlePaths) {
+    assert.match(sitemapXml, new RegExp(`https://www\\.altaiedc\\.com${path}</loc>`));
+  }
+  assert.match(sitemapXml, /<lastmod>2026-08-14T/);
+
+  assert.equal(robotsResponse.status, 200);
+  assert.match(await robotsResponse.text(), /Sitemap: https:\/\/www\.altaiedc\.com\/sitemap\.xml/);
+
+  const [siteSource, layoutSource, journalCss, readme] = await Promise.all([
+    readFile(new URL("../lib/site.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/journal/journal.css", import.meta.url), "utf8"),
+    readFile(new URL("../README.md", import.meta.url), "utf8"),
+  ]);
+  assert.doesNotMatch(siteSource, /NEXT_PUBLIC_SITE_URL|altaie\.app/);
+  assert.match(siteSource, /https:\/\/www\.altaiedc\.com/);
+  assert.doesNotMatch(layoutSource, /next\/headers|headers\(\)/);
+  assert.match(layoutSource, /metadataBase:\s*new URL\(SITE_URL\)/);
+  assert.match(journalCss, /\.field-note__decision[^}]*:focus-visible|\.field-note__decision\s+:focus-visible/);
+  assert.match(journalCss, /\.cta-band :focus-visible\s*\{[^}]*outline-color:\s*var\(--ivory\)/);
+  assert.doesNotMatch(readme, /NEXT_PUBLIC_SITE_URL=https:\/\/altaie\.app|attach `altaie\.app`/);
 });
 
 test("dashboard routes challenge anonymous visitors and accept configured credentials", async () => {

@@ -55,6 +55,22 @@
 - Diagnostics: no application-origin console errors were observed. The only logged errors came from the cloud browser's `chrome-extension://` metadata helper and are classified as environment noise.
 - Remaining P0/P1/P2 findings: none.
 
+## Fahad Field Notes journal
+
+- Deployed-preview routes reviewed: `/journal`, `/journal/dca-iad-bwi-ground-risk`, and `/journal/fahad-hamid`; an unknown article slug correctly returned the native 404 state.
+- Browser CSS viewport: 1363 × 936 px. The journal hub, long-form article header, and author profile preserved the existing Altaie editorial grid with no horizontal overflow at the reviewed viewport.
+- Visual hierarchy: the oversized Newsreader headlines, compact Manrope metadata, warm paper background, restrained rules, monochrome campaign imagery, and hard-edged calls to action remain consistent with the public site rather than reading as a separate publishing template.
+- Images: the hub campaign images, article hero, and Fahad portrait loaded at nonzero natural dimensions with descriptive alternative text. Below-fold portraits retain native lazy-loading behavior.
+- Content structure: visible breadcrumbs, byline, publication date, answer-first decision block, section navigation, semantic comparison table, source notes, author card, service links, and related Field Notes were verified on the deployed article.
+- Discovery: `Field Notes` is present in desktop/mobile navigation and the footer, the homepage includes all three article routes, and the journal hub links the author entity and every launch article.
+- Search metadata: the reviewed article exposed its production canonical URL and matching `BlogPosting` plus `BreadcrumbList` JSON-LD; the author page exposed its production canonical and matching `ProfilePage` plus `BreadcrumbList` JSON-LD.
+- Editorial transparency: the author page visibly discloses AI-assisted research and copyediting, links operational claims to public source pages, and advises readers to reconfirm changeable instructions.
+- Diagnostics: no Altaie-origin console warning or error was observed. Logged errors came from the cloud browser metadata extension; Vercel sign-in warnings appeared only while testing protected-preview edge routes and are classified as environment noise.
+- Automated evidence: `npm run check` passed lint, 3 unit tests, a production build, and 6 rendered-route tests, including journal attribution, canonical, schema, sitemap, robots, source-link, and unknown-slug behavior.
+- Review hardening: fixed the canonical origin against environment drift, moved publication metadata to a past launch time, aligned visible and structured breadcrumbs, made generated imagery explicitly illustrative, added high-contrast dark-band focus states and keyboard-focusable table regions, and separated official airport rules from Fahad's labeled operating framework.
+- Rendering mode: the fixed metadata origin removed the request-header dependency; the journal hub and author page now prerender statically, and all three article routes build as SSG pages from `generateStaticParams`.
+- Remaining P0/P1/P2 findings: none.
+
 ## Primary interactions tested
 
 - Changed the six-stage itinerary from Assigned to En route and verified the headline and `aria-current` state.

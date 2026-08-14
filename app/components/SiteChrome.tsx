@@ -5,6 +5,7 @@ const navigation = [
   ["Corporate", "/corporate"],
   ["Airports", "/airports"],
   ["Our standard", "/standards"],
+  ["Field Notes", "/journal"],
 ] as const;
 
 export function BrandLockup({ inverse = false }: { inverse?: boolean }) {
@@ -57,6 +58,7 @@ export function Footer() {
           <Link href="/corporate">Corporate travel</Link>
           <Link href="/airports">Airport service</Link>
           <Link href="/standards">Our standard</Link>
+          <Link href="/journal">Field Notes</Link>
         </div>
         <div className="footer-column">
           <p className="eyebrow eyebrow--light">Company</p>
