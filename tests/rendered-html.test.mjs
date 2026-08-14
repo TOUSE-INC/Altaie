@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
 import { once } from "node:events";
-import { access } from "node:fs/promises";
+import { access, readFile } from "node:fs/promises";
 import net from "node:net";
 import { fileURLToPath } from "node:url";
 import { after, before, test } from "node:test";
@@ -158,7 +158,18 @@ test("dashboard routes challenge anonymous visitors and accept configured creden
     const dashboardHtml = await authenticatedResponse.text();
     assert.match(dashboardHtml, /Fahad Hamid/);
     assert.doesNotMatch(dashboardHtml, /Marcus T\./);
+    if (path === "/portal") {
+      assert.match(dashboardHtml, /<dt>Flight<\/dt><dd>UA 1842<\/dd>/);
+      assert.match(dashboardHtml, /<dt>Chauffeur<\/dt><dd>Fahad Hamid<\/dd>/);
+    }
   }
+});
+
+test("the chauffeur replacement preserves unrelated demo identities", async () => {
+  const ownerSource = await readFile(new URL("../app/owner/OwnerDashboard.tsx", import.meta.url), "utf8");
+  assert.match(ownerSource, /Marcus Bell/);
+  assert.match(ownerSource, /Lena R\./);
+  assert.match(ownerSource, /Omar K\./);
 });
 
 test("dashboard routes fail closed when credentials are not configured", async () => {

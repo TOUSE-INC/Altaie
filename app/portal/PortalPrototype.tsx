@@ -71,6 +71,7 @@ function HomeScreen({ navigate }: { navigate: (screen: Screen) => void }) {
             <div><dt>Rider</dt><dd>Jordan Lee</dd></div>
             <div><dt>Service</dt><dd>Airport transfer</dd></div>
             <div><dt>Vehicle</dt><dd>Executive sedan</dd></div>
+            <div><dt>Flight</dt><dd>UA 1842</dd></div>
             <div><dt>Chauffeur</dt><dd>Fahad Hamid</dd></div>
           </dl>
           <div className="portal-actions"><button className="portal-button portal-button--white" onClick={() => navigate("ride")}>View ride</button><button className="portal-button portal-button--ghost" onClick={() => navigate("desk")}>Message desk</button></div>

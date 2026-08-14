@@ -70,6 +70,7 @@ body:has(.portal-root) { background: #f5f4ef; }
 .portal-detail-grid dd, .portal-settings dd, .portal-assignment-card dd { margin: 5px 0 0; font-size: .82rem; font-weight: 700; }
 .portal-detail-grid--inverse { border-color: rgba(255,255,255,.18); }
 .portal-detail-grid--inverse > div { border-color: rgba(255,255,255,.18); }
+.portal-detail-grid--inverse > div:last-child { grid-column: 1 / -1; }
 .portal-detail-grid--inverse dt { color: #8e8e89; }
 .portal-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
 .portal-button { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; padding: 0 18px; border: 1px solid transparent; border-radius: 0; font-size: .67rem; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
