@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import Image from "next/image";
 import styles from "./AdvancedMobilePortal.module.css";
 
 type Tab = "home" | "rides" | "desk" | "you";
@@ -52,7 +53,7 @@ function Home({ openBooking, go }: { openBooking: () => void; go: (tab: Tab) => 
       <div className={styles.cardTop}><span><StatusDot /> Next movement</span><small>AT-1048</small></div>
       <div className={styles.timeRow}><strong>7:10</strong><span>Tomorrow<br /><b>AM</b></span></div>
       <div className={styles.routeRow}><i /><b /><i /><div><strong>The Jefferson → DCA</strong><small>Executive sedan · UA 1842</small></div></div>
-      <div className={styles.stateRow}><span><StatusDot /> Chauffeur briefed</span><small>On track</small></div>
+      <div className={styles.stateRow}><span><StatusDot /> Chauffeur briefed</span><small>Fahad Hamid · On track</small></div>
       <div className={styles.progress}><i /></div>
     </button>
 
@@ -79,7 +80,7 @@ function RideDetail() {
     <section className={styles.rideSheet}>
       <div className={styles.sheetGrab} />
       <h2>The Jefferson → DCA</h2><p>Tomorrow · 7:10 AM · UA 1842</p>
-      <div className={styles.driverCard}><span className={styles.avatar}>MT</span><div><b>Marcus T.</b><small>Executive sedan · 4821</small></div><span className={styles.verified}>Verified</span></div>
+      <div className={styles.driverCard}><Image className={styles.avatar} src="/images/chauffeurs/fahad-hamid-portrait.webp" width={104} height={104} alt="Fahad Hamid chauffeur portrait" /><div><b>Fahad Hamid</b><small>Executive sedan · 4821</small></div><span className={styles.verified}>Verified</span></div>
       <div className={styles.dualActions}><button>✦ <span>Message desk</span></button><button>⌕ <span>Call chauffeur</span></button></div>
       <div className={styles.timelineLabel}>Ride timeline</div>
       <div className={styles.timeline}>{["Confirmed","Briefed","Assigned","En route","Complete"].map((item, i) => <span key={item} className={i < 3 ? styles.timelineDone : ""}><i />{item}</span>)}</div>

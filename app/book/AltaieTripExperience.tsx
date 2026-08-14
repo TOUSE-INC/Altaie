@@ -41,9 +41,9 @@ const fleet = [
   {
     name: "Cadillac Escalade ESV",
     note: "Up to 6 passengers",
-    image: "/images/owner/chauffeur-escalade.jpg",
-    width: 1920,
-    height: 1280,
+    image: "/images/chauffeurs/fahad-hamid-airport.webp",
+    width: 1536,
+    height: 1024,
   },
   {
     name: "Mercedes-Maybach S-Class",
@@ -163,13 +163,13 @@ function ChauffeurAssignment({ onDesk }: { onDesk: () => void }) {
         <p className="trip-label">Chauffeur</p>
         <div className="trip-chauffeur__identity">
           <Image
-            src="/images/owner/icons/driver-marcus.jpg"
-            width={512}
-            height={512}
-            alt="Demo chauffeur Marcus Reed"
+            src="/images/chauffeurs/fahad-hamid-portrait.webp"
+            width={1024}
+            height={1024}
+            alt="Demo chauffeur Fahad Hamid"
           />
           <div>
-            <h3>Marcus Reed</h3>
+            <h3>Fahad Hamid</h3>
             <p>Senior chauffeur<br />Since 2016</p>
           </div>
         </div>
@@ -236,7 +236,7 @@ function DeskPanel({ onClose }: { onClose: () => void }) {
       <button type="button" className="trip-icon-button" onClick={onClose} aria-label="Close desk panel"><X size={22} /></button>
       <p className="trip-label">Altaie coordination desk</p>
       <h2 id="desk-panel-title">A person owns the movement.</h2>
-      <p>This is a product demonstration, so Marcus and the displayed number are mock data. For a real request, use the Altaie contact desk.</p>
+      <p>This is a product demonstration, so Fahad and the displayed number are mock data. For a real request, use the Altaie contact desk.</p>
       <Link href="/contact" className="trip-button trip-button--dark">Open contact desk <ArrowRight size={18} /></Link>
     </aside>
   );
@@ -277,7 +277,7 @@ function LiveTrip({
       <RouteMap stageIndex={stageIndex} live />
       <section className="trip-live__summary" aria-label="Simulated live trip summary">
         <div><Clock size={21} /><span><small>Estimated pickup</small><strong>10:20 AM</strong></span></div>
-        <div><SteeringWheel size={21} /><span><small>Chauffeur</small><strong>Marcus Reed</strong></span></div>
+        <div><SteeringWheel size={21} /><span><small>Chauffeur</small><strong>Fahad Hamid</strong></span></div>
         <div><MapPin size={21} /><span><small>Current state</small><strong>{TRIP_STAGES[stageIndex].label}</strong></span></div>
       </section>
       <section className="trip-live__events" aria-labelledby="live-events-title">

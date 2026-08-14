@@ -112,6 +112,8 @@ test("the public launch surface renders the truthful private-beta journey", asyn
   assert.match(bookingHtml, /Private beta/i);
   assert.match(bookingHtml, /Demo itinerary/i);
   assert.match(bookingText, /Your chauffeur is assigned\./i);
+  assert.match(bookingText, /Fahad Hamid/);
+  assert.doesNotMatch(bookingText, /Marcus Reed/);
   assert.match(bookingHtml, /View live trip/i);
   assert.match(bookingHtml, /Simulated live data/i);
   assert.match(bookingHtml, /Illustrative route map of Washington, DC/i);
@@ -153,6 +155,9 @@ test("dashboard routes challenge anonymous visitors and accept configured creden
       headers: { authorization: `Basic ${authorization}` },
     });
     assert.equal(authenticatedResponse.status, 200);
+    const dashboardHtml = await authenticatedResponse.text();
+    assert.match(dashboardHtml, /Fahad Hamid/);
+    assert.doesNotMatch(dashboardHtml, /Marcus T\./);
   }
 });
 

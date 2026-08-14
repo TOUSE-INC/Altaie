@@ -40,6 +40,21 @@
    - Fixes: preserved the selected headline's semantic two-line break, increased hero/timeline breathing room, and enlarged/flipped the vehicle treatment to match the source composition.
    - Post-fix evidence: `docs/design-qa/option-2-comparison.jpg`; no actionable P0/P1/P2 difference remains.
 
+## Fahad Hamid campaign extension
+
+- Final campaign set: `public/images/chauffeurs/fahad-hamid-portrait.webp`, `fahad-hamid-arrival.webp`, `fahad-hamid-airport.webp`, and `fahad-hamid-fleet.webp`.
+- Asset review evidence: `docs/design-qa/fahad-campaign-contact-sheet.jpg`.
+- In-context evidence: `docs/design-qa/fahad-campaign-home.jpg`, `docs/design-qa/fahad-campaign-book.jpg`, `docs/design-qa/fahad-campaign-arrival-comparison.jpg`, and `docs/design-qa/fahad-campaign-portrait-comparison.jpg`.
+- Hair and grooming: the four-image set consistently uses a premium low taper, natural lineup, controlled short texture, and a shaped full beard without an artificial painted-on edge.
+- Wardrobe: the suit reads as bespoke black high-twist wool with a clean shoulder line, restrained lapels, white spread collar, and centered matte black tie. No logos, watermarks, or fashion branding are visible.
+- Posture and service cues: Fahad stands upright with relaxed shoulders and open hands, holds vehicle doors without crowding the passenger zone, and reads as a polished chauffeur rather than security detail.
+- Homepage placement: the wide arrival image preserves the source's left-side negative space for the editorial headline and keeps Fahad and the sedan clear beneath the existing monochrome overlay.
+- Booking placement: the square portrait remains recognizable at the 116 px circular assignment crop; the haircut, collar, tie, and shoulder line remain legible without crowding the name or actions.
+- Product continuity: Fahad replaces only the former demo chauffeur identity across `/book`, `/owner`, and `/portal`; rider identities and other demo chauffeurs remain unchanged.
+- Core browser flow: verified assigned itinerary, live-trip transition, ETA advance from 20 to 12 minutes, and coordination-desk panel open/close at a 1363 × 936 CSS viewport.
+- Diagnostics: no application-origin console errors were observed. The only logged errors came from the cloud browser's `chrome-extension://` metadata helper and are classified as environment noise.
+- Remaining P0/P1/P2 findings: none.
+
 ## Primary interactions tested
 
 - Changed the six-stage itinerary from Assigned to En route and verified the headline and `aria-current` state.
