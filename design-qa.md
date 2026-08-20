@@ -57,7 +57,7 @@
 
 ## Fahad Field Notes journal
 
-- Deployed-preview routes reviewed: `/journal`, `/journal/dca-iad-bwi-ground-risk`, and `/journal/fahad-hamid`; an unknown article slug correctly returned the native 404 state.
+- Deployed-preview routes reviewed: `/journal`, `/journal/dca-iad-ground-risk`, and `/journal/fahad-hamid`; an unknown article slug correctly returned the native 404 state.
 - Browser CSS viewport: 1363 × 936 px. The journal hub, long-form article header, and author profile preserved the existing Altaie editorial grid with no horizontal overflow at the reviewed viewport.
 - Visual hierarchy: the oversized Newsreader headlines, compact Manrope metadata, warm paper background, restrained rules, monochrome campaign imagery, and hard-edged calls to action remain consistent with the public site rather than reading as a separate publishing template.
 - Images: the hub campaign images, article hero, and Fahad portrait loaded at nonzero natural dimensions with descriptive alternative text. Below-fold portraits retain native lazy-loading behavior.

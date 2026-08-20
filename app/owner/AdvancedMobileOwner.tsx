@@ -9,7 +9,6 @@ type Coverage = { name: string; value: number; tone: "live" | "electric" | "cham
 const coverage: Coverage[] = [
   { name: "DCA", value: 92, tone: "live" },
   { name: "IAD", value: 84, tone: "electric" },
-  { name: "BWI", value: 71, tone: "champagne" },
 ];
 
 const movements = [
@@ -76,7 +75,7 @@ function Dispatch() {
 function Network() {
   return <div className={styles.screen}>
     <div className={styles.pageHead}><div><span>PARTNER NETWORK</span><h1>Supply you can trust.</h1></div><span className={styles.healthPill}>98% health</span></div>
-    <section className={styles.coverageHero}><strong>18</strong><span>vehicles ready now</span><small>DC core · DCA · IAD · BWI</small></section>
+    <section className={styles.coverageHero}><strong>18</strong><span>vehicles ready now</span><small>DC core · DCA · IAD</small></section>
     <section className={styles.coverageCard}>{coverage.map((cell) => <div className={styles.networkCell} key={cell.name}><div><b>{cell.name}</b><span>{cell.value}% ready</span></div><i><b className={styles[`bar_${cell.tone}`]} style={{width:`${cell.value}%`}} /></i><small>{cell.name === "DCA" ? "7 vehicles" : cell.name === "IAD" ? "6 vehicles" : "5 vehicles"}</small></div>)}</section>
     <div className={styles.partnerList}>{[["Monument Executive","Preferred","99.1%"],["Potomac Mobility","Active","97.5%"],["District Chauffeur","Active","96.8%"],["Capital Transport","Backup","95.4%"]].map(([name,status,onTime]) => <article key={name}><span className={styles.partnerCode}>{name.split(" ").map(v=>v[0]).join("")}</span><div><b>{name}</b><small>{status} · {onTime} on time</small></div><span>›</span></article>)}</div>
   </div>;

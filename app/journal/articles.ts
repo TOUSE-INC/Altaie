@@ -52,12 +52,12 @@ const launchDate = "2026-08-14T02:00:00-04:00";
 
 export const articles: ArticleRecord[] = [
   {
-    slug: "dca-iad-bwi-ground-risk",
+    slug: "dca-iad-ground-risk",
     category: "Airport strategy",
-    title: "DCA, IAD, or BWI? Choose the Washington airport by ground risk",
-    description: "A Washington executive-travel framework for choosing between DCA, IAD, and BWI by appointment geography, curb handoff, luggage, and schedule risk.",
+    title: "DCA or IAD? Choose the Washington airport by ground risk",
+    description: "A Washington executive-travel framework for choosing between DCA and IAD by appointment geography, curb handoff, luggage, and schedule risk.",
     deck: "The best Washington airport is not always the one with the cheapest fare or shortest scheduled flight. For a principal with a hard door time, the better choice is the airport that leaves the fewest fragile handoffs between touchdown and the first room.",
-    decision: "For a first hard commitment in central Washington, DCA usually creates the shortest ground plan. IAD deserves the first look when the day begins in Northern Virginia or the flight schedule materially reduces air-side risk. BWI is strongest when Baltimore or northeast Maryland belongs in the itinerary. Compare the whole door-to-door sequence—not the airfare in isolation.",
+    decision: "For a first hard commitment in central Washington, DCA usually creates the shortest ground plan. IAD deserves the first look when the day begins in Northern Virginia or the flight schedule materially reduces air-side risk. Compare the whole door-to-door sequence—not the airfare in isolation.",
     datePublished: launchDate,
     dateModified: launchDate,
     displayDate: "August 14, 2026",
@@ -87,7 +87,6 @@ export const articles: ArticleRecord[] = [
           rows: [
             ["Downtown, Foggy Bottom, Capitol Hill, Navy Yard", "DCA", "Usually the simplest central-Washington ground geometry", "A materially better nonstop, an international itinerary, or a late arrival window"],
             ["Tysons, Reston, Dulles corridor", "IAD", "Keeps the first movement in Northern Virginia", "A later central-DC schedule or a flight-time disadvantage"],
-            ["Baltimore, Fort Meade, northeast Maryland", "BWI", "Aligns the airport with the northern part of the day", "A Washington-only itinerary with a hard early door"],
             ["Mixed-region roadshow", "Compare the full day", "No single airport wins every leg", "The final flight schedule and where the vehicle should finish"],
           ],
         },
@@ -112,7 +111,6 @@ export const articles: ArticleRecord[] = [
         title: "The curb handoff is different at each airport",
         paragraphs: [
           "At DCA, the terminal matters. The airport’s passenger-meeting guidance directs Terminal 1 pickups to ground level and Terminal 2 pickups to the Arrivals/Baggage Claim level, and it asks drivers and passengers to agree on a specific meeting location. At IAD, the official guidance tells arriving parties to agree on a numbered Arrival Door and states that the arrivals curb is for active loading and unloading only.",
-          "BWI’s passenger guidance distinguishes the Arrivals/Lower Level for private passenger pickup from the Departures/Upper Level used by app-based ride services. Those details are operational, not decorative: the wrong level or door can turn a good route plan into a missed handoff.",
           "Airport construction and roadway controls can change. The ride confirmation should therefore carry the current terminal and door instruction, and the chauffeur should reconfirm it on the day of service rather than rely on an old message thread.",
         ],
         note: {
@@ -155,8 +153,6 @@ export const articles: ArticleRecord[] = [
     sources: [
       { label: "Reagan National — Meeting Passengers", href: "https://www.flyreagan.com/travel-information/meeting-passengers" },
       { label: "Dulles International — Meeting Passengers", href: "https://www.flydulles.com/travel-information/meeting-passengers" },
-      { label: "BWI Marshall — Passenger Pick-Up and Drop-Off FAQ", href: "https://bwiairport.com/frequently-asked-questions/" },
-      { label: "BWI Marshall — App-Based Ride Services", href: "https://bwiairport.com/to-from-bwi/transportation/app-based-ride-services/" },
       { label: "Altaie — Washington Airport Service", href: "/airports" },
     ],
     serviceLinks: [
@@ -300,7 +296,7 @@ export const articles: ArticleRecord[] = [
       { label: "Review corporate movement", href: "/corporate" },
       { label: "Brief a private aviation arrival", href: "/book" },
     ],
-    relatedSlugs: ["dca-iad-bwi-ground-risk", "hourly-chauffeur-washington-board-day"],
+    relatedSlugs: ["dca-iad-ground-risk", "hourly-chauffeur-washington-board-day"],
   },
   {
     slug: "hourly-chauffeur-washington-board-day",
@@ -432,7 +428,7 @@ export const articles: ArticleRecord[] = [
       { label: "Review hourly assignments", href: "/services#hourly" },
       { label: "Request a multi-stop assignment", href: "/book" },
     ],
-    relatedSlugs: ["dca-iad-bwi-ground-risk", "fbo-to-boardroom-chauffeur-brief"],
+    relatedSlugs: ["dca-iad-ground-risk", "fbo-to-boardroom-chauffeur-brief"],
   },
 ];
 

@@ -34,7 +34,7 @@ Add a test that fetches these paths:
 
 ```js
 const articlePaths = [
-  "/journal/dca-iad-bwi-ground-risk",
+  "/journal/dca-iad-ground-risk",
   "/journal/fbo-to-boardroom-chauffeur-brief",
   "/journal/hourly-chauffeur-washington-board-day",
 ];

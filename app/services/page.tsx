@@ -4,7 +4,7 @@ import { CTA, PageHero } from "../components/Content";
 export const metadata: Metadata = { title: "Chauffeur services", description: "Airport, point-to-point, hourly, roadshow, and event chauffeur coordination in Washington, DC." };
 
 const services = [
-  { id: "airport", number: "01", title: "Airport transfers", body: "Advance-reserved arrivals and departures across DCA, IAD, and BWI. Flight details are reviewed before confirmation, and arrival assignments include a documented 60-minute grace period.", detail: "One way · Round trip · Meet instructions" },
+  { id: "airport", number: "01", title: "Airport transfers", body: "Advance-reserved arrivals and departures across DCA and IAD. Flight details are reviewed before confirmation, and arrival assignments include a documented 60-minute grace period.", detail: "One way · Round trip · Meet instructions" },
   { id: "point-to-point", number: "02", title: "Point to point", body: "Advance-requested coordination between offices, hotels, residences, venues, and private aviation terminals throughout the launch service area.", detail: "Desk-confirmed total · No surge pricing" },
   { id: "hourly", number: "03", title: "Hourly / as-directed", body: "Keep one chauffeur and vehicle available across a changing sequence of meetings, meals, and waits. Best for principal movement and government-affairs days.", detail: "Multi-stop · Schedule flexibility" },
   { id: "roadshows", number: "04", title: "Roadshows", body: "A single assignment brief covering passenger names, route sequence, wait points, and live changes—reviewed before the first pickup.", detail: "One itinerary · One accountable desk" },

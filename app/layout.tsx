@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope, Newsreader } from "next/font/google";
-import { SITE_URL } from "@/lib/site";
+import { PILOT_AIRPORT_LABEL, SITE_URL } from "@/lib/site";
 import { Footer, Header } from "./components/SiteChrome";
 import "./globals.css";
 import "./mobile-safari.css";
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     title: "Altaie — Washington, handled.",
-    description: "A discreet executive mobility desk for Washington, DC, DCA, IAD, and BWI.",
+    description: `A discreet executive mobility desk for Washington, DC, ${PILOT_AIRPORT_LABEL}.`,
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "Altaie — Washington, handled." }],
   },
   twitter: { card: "summary_large_image", title: "Altaie — Washington, handled.", description: "Washington's executive mobility desk.", images: ["/og.png"] },

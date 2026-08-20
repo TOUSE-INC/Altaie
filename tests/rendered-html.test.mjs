@@ -115,6 +115,11 @@ test("the public launch surface renders the truthful private-beta journey", asyn
   ]);
 
   assert.equal(homeResponse.status, 200);
+  assert.match(homeResponse.headers.get("content-security-policy") ?? "", /frame-ancestors 'none'/);
+  assert.equal(homeResponse.headers.get("x-content-type-options"), "nosniff");
+  assert.equal(homeResponse.headers.get("x-frame-options"), "DENY");
+  assert.equal(homeResponse.headers.get("referrer-policy"), "strict-origin-when-cross-origin");
+  assert.match(homeResponse.headers.get("permissions-policy") ?? "", /geolocation=\(\)/);
   const homeHtml = await homeResponse.text();
   assert.match(homeHtml, /Washington/);
   assert.doesNotMatch(homeHtml, /available inventory is shown upfront|direct booking/i);
@@ -150,12 +155,12 @@ test("the public launch surface renders the truthful private-beta journey", asyn
 
 test("Fahad Hamid Field Notes are crawlable, attributable, and internally discoverable", async () => {
   const articlePaths = [
-    "/journal/dca-iad-bwi-ground-risk",
+    "/journal/dca-iad-ground-risk",
     "/journal/fbo-to-boardroom-chauffeur-brief",
     "/journal/hourly-chauffeur-washington-board-day",
   ];
   const articleTitles = [
-    "DCA, IAD, or BWI? Choose the Washington airport by ground risk",
+    "DCA or IAD? Choose the Washington airport by ground risk",
     "FBO to boardroom: the chauffeur brief that prevents a missed handoff",
     "The six-stop Washington day: when hourly service beats separate rides",
   ];
@@ -211,7 +216,7 @@ test("Fahad Hamid Field Notes are crawlable, attributable, and internally discov
     assert.match(html, /class="field-note__table-wrap"[^>]*role="region"[^>]*tabindex="0"/);
     assert.match(html, /Illustrative Altaie campaign image/);
     assert.doesNotMatch(html, /at a Washington airport|prepared for a private aviation arrival|for a multi-stop Washington assignment/);
-    if (index === 0) assert.match(html, /App-Based Ride Services/);
+    if (index === 0) assert.match(html, /Dulles International — Meeting Passengers/);
     if (index === 1) assert.match(html, /Fahad(?:&apos;|’)s operating framework/);
     assert.doesNotMatch(html, /FAQPage/);
   }

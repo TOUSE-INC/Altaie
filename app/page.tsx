@@ -2,10 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { CTA, NumberedList } from "./components/Content";
 import { articles } from "./journal/articles";
-import { absoluteUrl, organizationId, SITE_URL } from "@/lib/site";
+import { absoluteUrl, organizationId, PILOT_AIRPORT_LABEL, PILOT_AIRPORTS, SITE_URL } from "@/lib/site";
 
 const services = [
-  { index: "01", title: "Airport arrivals", body: "Flight-aware coordination for DCA, IAD, and BWI, including a documented 60-minute arrival grace period.", href: "/airports" },
+  { index: "01", title: "Airport arrivals", body: `Flight-aware coordination for ${PILOT_AIRPORT_LABEL}, including a documented 60-minute arrival grace period.`, href: "/airports" },
   { index: "02", title: "Hourly assignments", body: "One chauffeur, one vehicle, and one accountable desk across a day of meetings, changes, and waits.", href: "/services#hourly" },
   { index: "03", title: "Corporate movement", body: "Assistant-friendly requests, centralized preferences, and consistent confirmations for recurring travelers.", href: "/corporate" },
 ];
@@ -19,7 +19,7 @@ export default function Home() {
     url: SITE_URL,
     logo: absoluteUrl("/brand/altaie-mark.svg"),
     image: absoluteUrl("/images/chauffeurs/fahad-hamid-arrival.webp"),
-    areaServed: ["Washington, DC", "DCA", "IAD", "BWI"],
+    areaServed: ["Washington, DC", ...PILOT_AIRPORTS],
     description: "A Washington, DC executive mobility desk for advance-reserved chauffeur coordination.",
     serviceType: ["Airport transfer", "Hourly chauffeur service", "Corporate transportation", "Event transportation"],
   };
@@ -40,7 +40,7 @@ export default function Home() {
           </div>
         </div>
         <div className="hero-proof" aria-label="Service highlights">
-          <span>Advance requests</span><span>DCA · IAD · BWI</span><span>Desk confirmation</span>
+          <span>Advance requests</span><span>{PILOT_AIRPORT_LABEL}</span><span>Desk confirmation</span>
         </div>
       </section>
 
@@ -77,7 +77,7 @@ export default function Home() {
 
       <section className="airport-strip">
         <div className="page-shell airport-strip__inner">
-          <div><p className="eyebrow eyebrow--light">Three airports. One standard.</p><h2>DCA <span>·</span> IAD <span>·</span> BWI</h2></div>
+          <div><p className="eyebrow eyebrow--light">Two airports. One standard.</p><h2>DCA <span>·</span> IAD</h2></div>
           <p>Flight tracking, clear meet instructions, and a 60-minute grace period for airport arrivals.</p>
           <Link className="button button--ivory" href="/airports">Airport details</Link>
         </div>

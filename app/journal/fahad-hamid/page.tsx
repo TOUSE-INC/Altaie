@@ -91,7 +91,7 @@ export default function FahadHamidProfilePage() {
           <h1>Fahad<br /><em>Hamid.</em></h1>
           <p className="author-profile__lead">Fahad covers the handoffs and decisions that shape executive ground movement in Washington: airport arrivals, private aviation coordination, and multi-stop days built around hard commitments.</p>
           <dl className="author-profile__scope">
-            <div><dt>Focus</dt><dd>Washington, DC · DCA · IAD · BWI</dd></div>
+            <div><dt>Focus</dt><dd>Washington, DC · DCA · IAD</dd></div>
             <div><dt>Assignments</dt><dd>Airport · Private aviation · Hourly</dd></div>
             <div><dt>Published</dt><dd>{articles.length} launch field notes</dd></div>
           </dl>

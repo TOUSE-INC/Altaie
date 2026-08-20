@@ -238,7 +238,7 @@ export function PortalPrototype() {
       <aside className="portal-sidebar">
         <div className="portal-logo"><AltaieMark /><div><strong>Altaie</strong><span>Client portal</span></div></div>
         <nav aria-label="Client portal navigation">{navigation.map((item) => <button key={item.id} className={screen === item.id ? "is-active" : ""} aria-current={screen === item.id ? "page" : undefined} onClick={() => navigate(item.id)}><span>{item.cue}</span>{item.label}</button>)}</nav>
-        <div className="portal-sidebar-foot"><span>Pilot preview</span><p>Washington · DCA · IAD · BWI</p></div>
+        <div className="portal-sidebar-foot"><span>Pilot preview</span><p>Washington · DCA · IAD</p></div>
       </aside>
 
       <div className="portal-main">

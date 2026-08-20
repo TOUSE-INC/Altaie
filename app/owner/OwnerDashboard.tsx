@@ -22,7 +22,7 @@ const rides = [
   { id: "AT-1056", time: "10:00", route: "K Street → Capitol Hill", rider: "Daniel Wu", vehicle: "Sedan", partner: "District", driver: "Omar K.", driverImage: "/images/owner/icons/driver-omar.jpg", status: "Confirmed", tone: "ready", type: "city" },
   { id: "AT-1057", time: "14:15", route: "Embassy Row · 4 stops", rider: "Amira Hassan", vehicle: "SUV", partner: "Monument", driver: "Fahad Hamid", driverImage: "/images/chauffeurs/fahad-hamid-portrait.webp", status: "Briefed", tone: "ready", type: "city" },
   { id: "AT-1058", time: "18:10", route: "Georgetown → DCA", rider: "Priya Shah", vehicle: "SUV", partner: "Unassigned", driver: "Unassigned", driverImage: "", status: "Needs coverage", tone: "alert", type: "airport" },
-  { id: "AT-1059", time: "20:40", route: "BWI → Dupont Circle", rider: "Marcus Bell", vehicle: "Sedan", partner: "Capital", driver: "Omar K.", driverImage: "/images/owner/icons/driver-omar.jpg", status: "Confirmed", tone: "ready", type: "airport" },
+  { id: "AT-1059", time: "20:40", route: "IAD → Dupont Circle", rider: "Marcus Bell", vehicle: "Sedan", partner: "Capital", driver: "Omar K.", driverImage: "/images/owner/icons/driver-omar.jpg", status: "Confirmed", tone: "ready", type: "airport" },
 ];
 
 const driverRoster = [
@@ -40,7 +40,7 @@ const partners = [
   { name: "Monument Executive", code: "ME", status: "Preferred", sedans: 5, suvs: 4, sprinters: 1, score: 98.4, onTime: "99.1%", zones: "DC · DCA · IAD" },
   { name: "Potomac Mobility", code: "PM", status: "Active", sedans: 3, suvs: 4, sprinters: 1, score: 96.8, onTime: "97.5%", zones: "DC · VA · IAD" },
   { name: "District Chauffeur", code: "DC", status: "Active", sedans: 4, suvs: 2, sprinters: 0, score: 95.9, onTime: "96.8%", zones: "DC · DCA" },
-  { name: "Capital Transport", code: "CT", status: "Backup", sedans: 2, suvs: 2, sprinters: 1, score: 94.2, onTime: "95.4%", zones: "DC · BWI" },
+  { name: "Capital Transport", code: "CT", status: "Backup", sedans: 2, suvs: 2, sprinters: 1, score: 94.2, onTime: "95.4%", zones: "DC · IAD" },
 ];
 
 const accounts = [
@@ -67,7 +67,7 @@ function Metric({ index, label, value, note, dark = false }: { index: string; la
 }
 
 function CoverageBars() {
-  return <div className="owner-coverage-bars" aria-label="Available network capacity"><div><span>DCA</span><i style={{ width: "92%" }} /><strong>92%</strong></div><div><span>IAD</span><i style={{ width: "84%" }} /><strong>84%</strong></div><div><span>BWI</span><i style={{ width: "71%" }} /><strong>71%</strong></div><div><span>DC core</span><i style={{ width: "96%" }} /><strong>96%</strong></div></div>;
+  return <div className="owner-coverage-bars" aria-label="Available network capacity"><div><span>DCA</span><i style={{ width: "92%" }} /><strong>92%</strong></div><div><span>IAD</span><i style={{ width: "84%" }} /><strong>84%</strong></div><div><span>DC core</span><i style={{ width: "96%" }} /><strong>96%</strong></div></div>;
 }
 
 function Overview({ navigate }: { navigate: (view: View) => void }) {
@@ -138,7 +138,7 @@ function Operations() {
     setNotice("Backup offer sent to Potomac Mobility. Escalation timer restarted at 4 minutes.");
   }
   return <div className="owner-view">
-    <div className="owner-page-head"><div><p className="owner-kicker">Live operations</p><h1>Command every movement.</h1><p>Monday, July 20 · Washington, DCA, IAD and BWI</p></div><div className="owner-live-indicator"><i />Live desk</div></div>
+    <div className="owner-page-head"><div><p className="owner-kicker">Live operations</p><h1>Command every movement.</h1><p>Monday, July 20 · Washington, DCA and IAD</p></div><div className="owner-live-indicator"><i />Live desk</div></div>
     <div className="owner-filter-row"><div role="tablist" aria-label="Ride filters"><button role="tab" aria-selected={filter === "all"} onClick={() => setFilter("all")}>All 6</button><button role="tab" aria-selected={filter === "attention"} onClick={() => setFilter("attention")}>Needs attention 2</button><button role="tab" aria-selected={filter === "airport"} onClick={() => setFilter("airport")}>Airport 4</button></div><button className="owner-button owner-button--dark">New assignment</button></div>
     <div className="owner-ops-layout">
       <section className="owner-ops-list">
@@ -164,7 +164,7 @@ function Operations() {
 function Network() {
   return <div className="owner-view">
     <div className="owner-page-head"><div><p className="owner-kicker">Partner network</p><h1>Capacity before promises.</h1><p>Four active operators · 26 chauffeurs · 24 vehicles</p></div><button className="owner-button owner-button--dark">Invite operator</button></div>
-    <section className="owner-network-summary"><Metric index="01" label="Core coverage" value="100%" note="DC + three airports" /><Metric index="02" label="Available now" value="19" note="Vehicles across network" /><Metric index="03" label="Network quality" value="96.3" note="Weighted partner score" /></section>
+    <section className="owner-network-summary"><Metric index="01" label="Core coverage" value="100%" note="DC + two airports" /><Metric index="02" label="Available now" value="19" note="Vehicles across network" /><Metric index="03" label="Network quality" value="96.3" note="Weighted partner score" /></section>
     <section className="owner-fleet-showcase">
       <div className="owner-fleet-heading"><p className="owner-kicker owner-kicker--light">Vehicle classes</p><h2>Black fleet.<br />Verified standards.</h2><p>Specific models remain subject to partner availability and written confirmation.</p></div>
       <figure>
@@ -207,7 +207,7 @@ function Compliance() {
     <div className="owner-page-head"><div><p className="owner-kicker">Compliance center</p><h1>Nothing expires quietly.</h1><p>Operator, vehicle, chauffeur and airport records</p></div><button className="owner-button owner-button--dark">Upload document</button></div>
     <section className="owner-compliance-score"><div><span>Network readiness</span><strong>92%</strong><p>47 of 51 required records are current.</p></div><div className="owner-score-ring"><span>92</span></div></section>
     <section className="owner-compliance-grid"><article><SectionTitle eyebrow="Action required" title="Two deadlines approaching" /><div className="owner-compliance-items"><button><span className="owner-doc-icon">COI</span><div><strong>Capital Transport insurance</strong><small>Expires Aug 1 · 12 days</small></div><Badge tone="alert">Urgent</Badge><b>↗</b></button><button><span className="owner-doc-icon">IAD</span><div><strong>District Chauffeur airport credential</strong><small>Renewal pending · 21 days</small></div><Badge tone="watch">Pending</Badge><b>↗</b></button></div></article><article><SectionTitle eyebrow="Coverage" title="Required records" /><div className="owner-document-bars"><div><span>Commercial insurance</span><i><b style={{ width: "100%" }} /></i><strong>4/4</strong></div><div><span>Operating authority</span><i><b style={{ width: "100%" }} /></i><strong>4/4</strong></div><div><span>Chauffeur screening</span><i><b style={{ width: "92%" }} /></i><strong>24/26</strong></div><div><span>Vehicle inspections</span><i><b style={{ width: "96%" }} /></i><strong>23/24</strong></div><div><span>Airport access</span><i><b style={{ width: "88%" }} /></i><strong>14/16</strong></div></div></article></section>
-    <section className="owner-checkpoints"><SectionTitle eyebrow="Launch checkpoints" title="Authority and operational readiness" /><div><article><span>01</span><strong>DC licensing</strong><p>Professional review of DLCP and DFHV operating model.</p><Badge tone="ready">Reviewed</Badge></article><article><span>02</span><strong>WMATC authority</strong><p>Interstate DMV transportation checkpoint by partner.</p><Badge tone="ready">Verified</Badge></article><article><span>03</span><strong>Airport credentials</strong><p>DCA, IAD and BWI permissions tracked per operator.</p><Badge tone="watch">1 pending</Badge></article><article><span>04</span><strong>Test rides</strong><p>Operational scenarios completed before public launch.</p><Badge>7 of 10</Badge></article></div></section>
+    <section className="owner-checkpoints"><SectionTitle eyebrow="Launch checkpoints" title="Authority and operational readiness" /><div><article><span>01</span><strong>DC licensing</strong><p>Professional review of DLCP and DFHV operating model.</p><Badge tone="ready">Reviewed</Badge></article><article><span>02</span><strong>WMATC authority</strong><p>Interstate DMV transportation checkpoint by partner.</p><Badge tone="ready">Verified</Badge></article><article><span>03</span><strong>Airport credentials</strong><p>DCA and IAD permissions tracked per operator.</p><Badge tone="watch">1 pending</Badge></article><article><span>04</span><strong>Test rides</strong><p>Operational scenarios completed before public launch.</p><Badge>7 of 10</Badge></article></div></section>
   </div>;
 }
 

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PILOT_AIRPORT_LABEL } from "@/lib/site";
 
 const navigation = [
   ["Services", "/services"],
@@ -70,7 +71,7 @@ export function Footer() {
       </div>
       <div className="footer-legal">
         <span>© {new Date().getFullYear()} Altaie. Launch candidate; trademark clearance pending.</span>
-        <span>Washington, DC · DCA · IAD · BWI</span>
+        <span>Washington, DC · {PILOT_AIRPORT_LABEL}</span>
       </div>
     </footer>
   );

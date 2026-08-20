@@ -14,11 +14,11 @@ The business outcome is qualified discovery for Altaie’s core service lines: a
 
 ## Editorial launch set
 
-### 1. DCA, IAD, or BWI? Choose the Washington airport by ground risk
+### 1. DCA or IAD? Choose the Washington airport by ground risk
 
 - Search intent: airport selection for a Washington executive itinerary.
 - Original value: a decision framework based on the first hard appointment, curb handoff, bags, and the day’s final geography instead of airfare alone.
-- Public-source support: the official passenger-meeting guidance for DCA and IAD and BWI’s official passenger pickup guidance.
+- Public-source support: the official passenger-meeting guidance for DCA and IAD.
 - Conversion path: airport service and ride request.
 
 ### 2. FBO to boardroom: the private aviation chauffeur brief that prevents a missed handoff
